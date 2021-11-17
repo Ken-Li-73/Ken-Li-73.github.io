@@ -25,6 +25,22 @@
       </tags>
   </entry>
   <entry>
+    <title>解决next主题搜索栏被遮挡的原因</title>
+    <url>/posts/d62d9cd6/</url>
+    <content><![CDATA[<p>使用next主题美化博客，当打开本地搜索功能时，发现搜索栏被遮挡在下面。</p>
+<span id="more"></span>
+
+<p>这是next主题CSS的问题，可以使用<code>z-index</code>属性来调节样式。打开根目录下<code>/themes/next/source/css/_common/outline/header/header.styl</code>文件。找到<code>.head-inner</code>添加<code>z-index: 9999;</code></p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.header-inner</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="variable">$content</span>-desktop;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">9999</span>;</span><br><span class="line">  +desktop-large() &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="variable">$content</span>-desktop-large;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>重新构件页面，问题解决。</p>
+<p><img src="/posts/d62d9cd6/result.jpg"></p>
+]]></content>
+      <tags>
+        <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>博客优化：页面美化</title>
     <url>/posts/f837761/</url>
     <content><![CDATA[<p>​    博客搭建完成后需要做一些美化，下面是我在网上搜集并亲手试验过的一些美化功能。</p>
@@ -410,7 +426,7 @@
 <p>选择SSH and GPG keys</p>
 <p><img src="/posts/29cff741/ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="/posts/29cff741/ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#105;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a> 进行检验：</p>
+<p><img src="/posts/29cff741/ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#x2e;&#x63;&#111;&#109;">&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#x2e;&#x63;&#111;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="/posts/29cff741/ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="/posts/29cff741/ssh-setup7.jpg"><br>项目配置如下:</p>
