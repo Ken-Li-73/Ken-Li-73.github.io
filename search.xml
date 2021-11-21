@@ -39,25 +39,25 @@
 
 <p><strong>正确连接信号线和电源线</strong>，信号灯会进行闪烁。</p>
 <h3 id="2-配置PC端IP"><a href="#2-配置PC端IP" class="headerlink" title="2.配置PC端IP"></a>2.配置PC端IP</h3><p>打开电脑的网络设置，设置以太网Ipv4分配。</p>
-<p><img src="/posts/dda0e464/connect_2.jpg"></p>
+<p><img src="connect_2.jpg"></p>
 <h3 id="3-配置通讯转换器（USR-DR302）"><a href="#3-配置通讯转换器（USR-DR302）" class="headerlink" title="3.配置通讯转换器（USR-DR302）"></a>3.配置通讯转换器（USR-DR302）</h3><p>在浏览器上输入ip地址<code>192.168.0.7</code>会弹出一个页面。</p>
-<p><img src="/posts/dda0e464/connect_3.jpg"></p>
+<p><img src="connect_3.jpg"></p>
 <p>如果没有弹出页面：</p>
 <ul>
 <li>一种可能是线路连接问题，检查一遍线路。</li>
 <li>还有一种可能是将设备模块的<code>默认ip</code>被修改了，可以通过<a href="https://www.usr.cn/Down/USR-DR302_V1.0.3.pdf">串口AT指令</a>查询或者<code>重置</code>。</li>
 </ul>
-<h3 id="4-配置本机ip设置"><a href="#4-配置本机ip设置" class="headerlink" title="4.配置本机ip设置"></a>4.配置本机ip设置</h3><p><img src="/posts/dda0e464/connect_4.jpg"></p>
+<h3 id="4-配置本机ip设置"><a href="#4-配置本机ip设置" class="headerlink" title="4.配置本机ip设置"></a>4.配置本机ip设置</h3><p><img src="connect_4.jpg"></p>
 <p>除了<code>ip地址</code>不同（不冲突，建议默认），其他的<code>子网掩码</code>，<code>网关地址</code>，<code>DNS服务器</code>和在PC配置的<code>IPv4</code>一样。完成后，<code>重启</code>模块。</p>
-<h3 id="5-配置端口参数"><a href="#5-配置端口参数" class="headerlink" title="5.配置端口参数"></a>5.配置端口参数</h3><p><img src="/posts/dda0e464/connect_5.jpg"></p>
+<h3 id="5-配置端口参数"><a href="#5-配置端口参数" class="headerlink" title="5.配置端口参数"></a>5.配置端口参数</h3><p><img src="connect_5.jpg"></p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">波特率:</span> <span class="number">9600</span>    <span class="comment">#所使用的传感器在这个频段，WT61-PC485在这个频段</span></span><br><span class="line"><span class="string">本地端口:</span> <span class="number">8000</span>	<span class="comment">#可以随意给一个</span></span><br><span class="line"><span class="string">工作方式:</span> <span class="string">TCP</span> <span class="string">Server</span> </span><br></pre></td></tr></table></figure>
 
 <p>完成后，<code>重启</code>模块</p>
 <h3 id="6-配置扩散功能"><a href="#6-配置扩散功能" class="headerlink" title="6.配置扩散功能"></a>6.配置扩散功能</h3><p>打开<code>Modbus TCP</code>功能</p>
-<p><img src="/posts/dda0e464/connect_6.jpg"></p>
+<p><img src="connect_6.jpg"></p>
 <p>完成后，<code>重启</code>模块</p>
 <h3 id="7-测试通讯"><a href="#7-测试通讯" class="headerlink" title="7.测试通讯"></a>7.测试通讯</h3><p>打开<a href="https://www.usr.cn/Down/Software/USR-TCP232-Test-V1.3.exe">TCP串口调试助手</a>，或者网络调试助手。</p>
-<p><img src="/posts/dda0e464/connect_7.jpg"></p>
+<p><img src="connect_7.jpg"></p>
 <p>按图示操作，中间区域出现所要接收的报文，说明通讯成功。</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">协议类型:</span> <span class="string">TCP</span> <span class="string">Client</span>    </span><br><span class="line"><span class="string">服务器IP地址:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.7</span>	<span class="comment">#转换器模块的IP地址</span></span><br><span class="line"><span class="string">服务器端口号:</span> <span class="number">8000</span>		<span class="comment">#转换器模块的本地端口</span></span><br><span class="line"></span><br><span class="line"><span class="string">报文:</span> </span><br><span class="line">	<span class="string">modbusTCP表头:</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">06</span> 		<span class="comment">#后两个字节是数据报文的长度</span></span><br><span class="line">	<span class="string">数据报文:</span> <span class="number">50</span> <span class="number">03</span> <span class="number">00</span> <span class="string">3d</span> <span class="number">00</span> <span class="number">03</span>			<span class="comment">#除去CRC校验码的报文</span></span><br></pre></td></tr></table></figure>
 
@@ -79,7 +79,7 @@
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.header-inner</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="variable">$content</span>-desktop;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">9999</span>;</span><br><span class="line">  +desktop-large() &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="variable">$content</span>-desktop-large;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <p>重新构件页面，问题解决。</p>
-<p><img src="/posts/d62d9cd6/result.jpg"></p>
+<p><img src="result.jpg"></p>
 ]]></content>
       <tags>
         <tag>next</tag>
@@ -97,7 +97,7 @@
 <p>打开主题配置文件即<code>/themes/next</code>下的<code>_config.yml</code>，新版本可能没有canvas-nest，那将下面的代码找一个地方粘贴，我喜欢复制在<code>#canvas-ribbon</code>上面）</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Canvas-nest</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/theme-next/theme-next-canvas-nest</span></span><br><span class="line"><span class="comment"># For more information: https://github.com/hustcc/canvas-nest.js</span></span><br><span class="line"><span class="attr">canvas_nest:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">onmobile:</span> <span class="literal">true</span> <span class="comment"># Display on mobile or not</span></span><br><span class="line">  <span class="attr">color:</span> <span class="string">&quot;180, 240, 60&quot;</span> <span class="comment"># RGB values, use `,` to separate</span></span><br><span class="line">  <span class="attr">opacity:</span> <span class="number">0.6</span> <span class="comment"># The opacity of line: 0~1</span></span><br><span class="line">  <span class="attr">zIndex:</span> <span class="number">-1</span> <span class="comment"># z-index property of the background</span></span><br><span class="line">  <span class="attr">count:</span> <span class="number">99</span> <span class="comment"># The number of lines</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/posts/f837761/canvas_1.jpg"></p>
+<p><img src="canvas_1.jpg"></p>
 <h3 id="设置背景图片"><a href="#设置背景图片" class="headerlink" title="设置背景图片"></a>设置背景图片</h3><p>打开主题配置文件即<code>/themes/next</code>下的<code>_config.yml</code>，将 <code>style: source/_data/styles.styl</code> 取消注释：</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
 
@@ -208,12 +208,33 @@
 <p>打开<code>/themes/next/_config.yml</code>，查找<code>local_search</code> ，修改代码：</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">local_search:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">trigger:</span> <span class="string">manual</span>   <span class="comment">#手动，按回车键或搜索按钮触发搜索</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="彩色Tags"><a href="#彩色Tags" class="headerlink" title="彩色Tags"></a>彩色Tags</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% label [class] @ 标签内容 %&#125;</span><br><span class="line"></span><br><span class="line">class：</span><br><span class="line"> - default: 浅灰色,可留空</span><br><span class="line"> - primary: 浅紫色</span><br><span class="line"> - success: 浅绿色</span><br><span class="line"> - info: 浅蓝色</span><br><span class="line"> - warning: 浅黄色</span><br><span class="line"> - danger: 浅红色</span><br></pre></td></tr></table></figure>
 
+<mark class="label info"> 标签内容</mark>
+
+<h3 id="彩色-Note"><a href="#彩色-Note" class="headerlink" title="彩色 Note"></a>彩色 Note</h3><p>避免将标签和内容写在同一行，可能引起编译错误。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125; </span><br><span class="line">内容</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">class: </span><br><span class="line"> - default: 灰色</span><br><span class="line"> - primary: 紫色</span><br><span class="line"> - success: 绿色</span><br><span class="line"> - info: 蓝色</span><br><span class="line"> - warning: 黄色</span><br><span class="line"> - danger: 红色</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<div class="note success"><p>学无止境</p>
+</div>
+
+<h3 id="居中引用"><a href="#居中引用" class="headerlink" title="居中引用"></a>居中引用</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125; 引用内容 &#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote class="blockquote-center">
+<p>​    Later is never</p>
+
+</blockquote>
+
+<h3 id="切换Tabs"><a href="#切换Tabs" class="headerlink" title="切换Tabs"></a>切换Tabs</h3><p>使用 tabs…endtabs 标记 Tab 框架，框架内用 <code>&lt;!-- tab [name]--&gt;</code> 注释语句区分 Tab。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% tabs [Class] %&#125; // Class: 必填项，Tab的全局名称，唯一值，不能带有符号</span><br><span class="line"></span><br><span class="line">&lt;!-- tab 1号Tab--&gt;</span><br><span class="line">这里是1号Tab内容</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab 2号Tab--&gt;</span><br><span class="line">这里是2号Tab内容</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab 3号Tab--&gt;</span><br><span class="line">这里是3号Tab内容</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+
+<div class="tabs" id="info"><ul class="nav-tabs"><li class="tab active"><a href="#info-1">1号Tab</a></li><li class="tab"><a href="#info-2">2号Tab</a></li><li class="tab"><a href="#info-3">3号Tab</a></li></ul><div class="tab-content"><div class="tab-pane active" id="info-1"><p>这里是1号Tab内容</p></div><div class="tab-pane" id="info-2"><p>这里是2号Tab内容</p></div><div class="tab-pane" id="info-3"><p>这里是3号Tab内容</p></div></div></div>
 
 <h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://blog.csdn.net/Growing_potato/article/details/113926856?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-1.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-1.no_search_link">next主题美化——背景图片、页面透明化、阴影、圆角、动画</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/106060640">个人博客第8篇——优化主题（持续更新）</a></p>
 <p><a href="https://www.bbsmax.com/A/amd0j6R6Jg/">使用hexo-neat插件压缩页面静态资源 (bbsmax.com)</a></p>
 <p><a href="https://blog.csdn.net/nightmare_dimple/article/details/86661502">Hexo博客优化之Next主题美化_huangpiao-CSDN博客_hexo next</a></p>
+<p><a href="https://www.imczw.com/post/tech/hexo-next-tags-markdown.html">Hexo-Next 常用 MD 语法合集 | 第 25 小时随想 (imczw.com)</a></p>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -231,16 +252,16 @@
 <span id="more"></span>
 
 <h3 id="注册来必力-账号"><a href="#注册来必力-账号" class="headerlink" title="注册来必力 账号"></a>注册<a href="http://livere.com/">来必力 </a>账号</h3><p>验证邮箱就可以完成验证</p>
-<p><img src="/posts/7c915937/sign_1.jpg"></p>
+<p><img src="sign_1.jpg"></p>
 <p>登录来必力账号，选择<code>安装</code>，安装免费版</p>
-<p><img src="/posts/7c915937/sign_2.jpg"></p>
+<p><img src="sign_2.jpg"></p>
 <p>第一次下侧会出现一个框让你填写网站信息，然后获取代码就行。注意网络链接是你的博客链接。</p>
-<h3 id="复制data-uid代码"><a href="#复制data-uid代码" class="headerlink" title="复制data-uid代码"></a>复制<code>data-uid</code>代码</h3><p><img src="/posts/7c915937/sign_3.jpg"></p>
+<h3 id="复制data-uid代码"><a href="#复制data-uid代码" class="headerlink" title="复制data-uid代码"></a>复制<code>data-uid</code>代码</h3><p><img src="sign_3.jpg"></p>
 <p>4.配置主题文件</p>
 <p>在<code>/themes/next/_config.yml</code>,中找到<code>livere_uid</code>,粘贴代码</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">livere_uid:</span> <span class="string">&quot;uid代码&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="设置提醒"><a href="#设置提醒" class="headerlink" title="设置提醒"></a>设置提醒</h3><p><img src="/posts/7c915937/sign_4.jpg"></p>
+<h3 id="设置提醒"><a href="#设置提醒" class="headerlink" title="设置提醒"></a>设置提醒</h3><p><img src="sign_4.jpg"></p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>在根目录下打开<code>Git Bash</code>,输入</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean&amp;&amp;hexo g&amp;&amp;hexo d</span><br></pre></td></tr></table></figure>
 
@@ -261,21 +282,21 @@
 <span id="more"></span>
 
 <h3 id="1-获取歌单信息"><a href="#1-获取歌单信息" class="headerlink" title="1.获取歌单信息"></a>1.获取歌单信息</h3><p>将自己的想添加的歌单分享出去，然后在浏览器上打开，其中的一串数，或者是<code>id=</code>，就是要获得信息。</p>
-<p><img src="/posts/ac324628/config_0.jpg"></p>
+<p><img src="config_0.jpg"></p>
 <h3 id="2-添加Metingjs代码到侧边栏"><a href="#2-添加Metingjs代码到侧边栏" class="headerlink" title="2.添加Metingjs代码到侧边栏"></a>2.添加Metingjs代码到侧边栏</h3><p>在<code>themes\next\layout\_macro\sidebar.swig</code>找到类名为<code>sidebar-inner</code>的代码块位置：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- require APlayer --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- require MetingJS--&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line">      <span class="comment">&lt;!--playlist外链地址--&gt;</span>   </span><br><span class="line">      <span class="tag">&lt;<span class="name">meting-js</span></span></span><br><span class="line"><span class="tag">          <span class="attr">server</span>=<span class="string">&quot;tencent&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">type</span>=<span class="string">&quot;playlist&quot;</span> </span></span><br><span class="line"><span class="tag">          <span class="attr">id</span>=<span class="string">&quot;8239047461&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">mini</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">fixed</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">list-folded</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">autoplay</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">volume</span>=<span class="string">&quot;0.4&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">theme</span>=<span class="string">&quot;#FADFA3&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">order</span>=<span class="string">&quot;list&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">loop</span>=<span class="string">&quot;all&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">preload</span>=<span class="string">&quot;auto&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">lrc-type</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">mutex</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">meting-js</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/posts/ac324628/config_1.jpg"></p>
+<p><img src="config_1.jpg"></p>
 <p>代码的具体含义可以参照官方文档：<a href="https://aplayer.js.org/#/home">APlayer</a>，<a href="https://github.com/metowolf/MetingJS">MetingJS</a>。</p>
 <p>其中<code>server</code>,<code> type</code>,<code>id</code>,需要修改，我这里使用的是QQ音乐的歌单</p>
 <h3 id="3-实现全局播放"><a href="#3-实现全局播放" class="headerlink" title="3.实现全局播放"></a>3.实现全局播放</h3><p>打开<code>themes\next\layout</code>文件夹找到<code>_layout.swig</code>，并复制以下代码到<code>&lt;head&gt;</code>标签后</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--pjax：防止跳转页面音乐暂停--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/posts/ac324628/config_2.jpg"></p>
+<p><img src="config_2.jpg"></p>
 <p>在<code>themes\next\_config.yml</code>中找到<code>pjax</code>，将它设置为<code>true</code></p>
-<p><img src="/posts/ac324628/config_3.jpg"></p>
+<p><img src="config_3.jpg"></p>
 <p>后面就可以通过<code>hexo</code>命令生成界面了。</p>
-<p><img src="/posts/ac324628/config_4.jpg"></p>
+<p><img src="config_4.jpg"></p>
 <h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://blog.csdn.net/qq_39800978/article/details/109407258?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1.no_search_link&spm=1001.2101.3001.4242.2">Hexo博客设置背景音乐_Z先森9701的博客-CSDN博客</a></p>
 ]]></content>
       <categories>
@@ -332,7 +353,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save <span class="comment">#安装插件</span></span><br></pre></td></tr></table></figure>
 
 <p>打开hexo配置文件<code>_config.yml</code>，将<code>post_asset_folder</code>改成<code>true</code></p>
-<p><img src="/posts/715bf213/config_1.jpg"></p>
+<p><img src="config_1.jpg"></p>
 <p>打开<code>/node_modules/hexo-asset-image/index.js</code>,替换内容如下：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosition</span>(<span class="params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="built_in">String</span>(hexo.version).split(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">hexo.extend.filter.register(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.config;</span><br><span class="line">  <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">        <span class="keyword">var</span> link = data.permalink;</span><br><span class="line">    <span class="keyword">if</span>(version.length &gt; <span class="number">0</span> &amp;&amp; <span class="built_in">Number</span>(version[<span class="number">0</span>]) == <span class="number">3</span>)</span><br><span class="line">       <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">       <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">    <span class="keyword">var</span> endPos = link.lastIndexOf(<span class="string">&#x27;/&#x27;</span>) + <span class="number">1</span>;</span><br><span class="line">    link = link.substring(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        <span class="attr">ignoreWhitespace</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">xmlMode</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">lowerCaseTags</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;img&#x27;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($(<span class="built_in">this</span>).attr(<span class="string">&#x27;src&#x27;</span>))&#123;</span><br><span class="line">            <span class="comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span></span><br><span class="line">            <span class="keyword">var</span> src = $(<span class="built_in">this</span>).attr(<span class="string">&#x27;src&#x27;</span>).replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">            <span class="keyword">if</span>(!<span class="regexp">/http[s]*.*|\/\/.*/</span>.test(src) &amp;&amp;</span><br><span class="line">               !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">              <span class="comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span></span><br><span class="line">              <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">              <span class="keyword">var</span> linkArray = link.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">              &#125;);</span><br><span class="line">              <span class="keyword">var</span> srcArray = src.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">              &#125;);</span><br><span class="line">              <span class="keyword">if</span>(srcArray.length &gt; <span class="number">1</span>)</span><br><span class="line">                srcArray.shift();</span><br><span class="line">              src = srcArray.join(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">              $(<span class="built_in">this</span>).attr(<span class="string">&#x27;src&#x27;</span>, config.root + link + src);</span><br><span class="line">              <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;update link as:--&gt;&quot;</span>+config.root + link + src);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;no src attr, skipped...&quot;</span>);</span><br><span class="line">            <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info($(<span class="built_in">this</span>));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
@@ -362,13 +383,13 @@
 <p>首先为什么会写这么一篇文章，一方面是为了记录一下自己的搭建心得，另一方面当然是为了方便了。</p>
 <p>在本地电脑上配置好所有的hexo环境之后，写好的md.文件只能在本地通过<code>hexo  -g</code> 编译，而且只能在这一台电脑上完成，如果你换一台电脑，或者硬盘崩了，都需要重新配置。</p>
 <p>如果我们把编译的过程托管出去，而我们只需要向github提交文件，就会简单很多。</p>
-<h3 id="1-在GitHub上备份hexo编译环境和博文"><a href="#1-在GitHub上备份hexo编译环境和博文" class="headerlink" title="1.在GitHub上备份hexo编译环境和博文"></a>1.在<a href="https://github.com/">GitHub</a>上备份hexo编译环境和博文</h3><h4 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h4><p><img src="/posts/2942ffab/start_a_project.jpg"></p>
+<h3 id="1-在GitHub上备份hexo编译环境和博文"><a href="#1-在GitHub上备份hexo编译环境和博文" class="headerlink" title="1.在GitHub上备份hexo编译环境和博文"></a>1.在<a href="https://github.com/">GitHub</a>上备份hexo编译环境和博文</h3><h4 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h4><p><img src="start_a_project.jpg"></p>
 <p>权限设为public</p>
-<p><img src="/posts/2942ffab/start_a_project2.jpg"></p>
+<p><img src="start_a_project2.jpg"></p>
 <p>初始化本地仓库（使用hexo搭建的本地文件夹,也就是原来使用<code>hexo -g</code>的站点目录）</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin 新建仓库的网址</span><br></pre></td></tr></table></figure>
 
-<p><img src="/posts/2942ffab/start_a_project3.jpg"></p>
+<p><img src="start_a_project3.jpg"></p>
 <h4 id="修改-gitignore文件"><a href="#修改-gitignore文件" class="headerlink" title="修改.gitignore文件"></a>修改<code>.gitignore</code>文件</h4><p>由于目录下一些文件是通过hexo -g 生成的，所以不需要去备份。</p>
 <p>在<code>.gitignore</code>文件添加不需要上传的文件如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line">package-lock.json</span><br></pre></td></tr></table></figure>
@@ -379,39 +400,39 @@
 <p>此时查看自己的仓库，应该已经有了文件。</p>
 <h3 id="2-实现持续集成"><a href="#2-实现持续集成" class="headerlink" title="2.实现持续集成"></a>2.实现持续集成</h3><p>访问<a href="https://ci.appveyor.com/login">AppVeyor</a></p>
 <p>Appveyor对于windows支持比较友好，支持代码提交到github。</p>
-<p><img src="/posts/2942ffab/CI_1.jpg"></p>
+<p><img src="CI_1.jpg"></p>
 <p>第一次登录时，会让github授权，同意就行。</p>
-<h4 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h4><p><img src="/posts/2942ffab/CI_2.jpg"></p>
+<h4 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h4><p><img src="CI_2.jpg"></p>
 <p>选择在github上新建的仓库</p>
-<p><img src="/posts/2942ffab/CI_3.jpg"></p>
-<h4 id="打开github设置Settings"><a href="#打开github设置Settings" class="headerlink" title="打开github设置Settings"></a>打开github设置<code>Settings</code></h4><p><img src="/posts/2942ffab/CI_4.jpg"></p>
+<p><img src="CI_3.jpg"></p>
+<h4 id="打开github设置Settings"><a href="#打开github设置Settings" class="headerlink" title="打开github设置Settings"></a>打开github设置<code>Settings</code></h4><p><img src="CI_4.jpg"></p>
 <p>选择<code>Developer Settings</code></p>
-<p><img src="/posts/2942ffab/CI_5.jpg"></p>
+<p><img src="CI_5.jpg"></p>
 <p>选择<code>Personal access tokens</code></p>
-<p><img src="/posts/2942ffab/CI_6.jpg"></p>
+<p><img src="CI_6.jpg"></p>
 <p>配置<code>Personal access tokens</code></p>
-<p><img src="/posts/2942ffab/CI_7.jpg"></p>
+<p><img src="CI_7.jpg"></p>
 <p>配置完成后，下滑到最后，点击<code>Generate token1</code> 生成tokens</p>
 <p>复制<code>Access Token</code></p>
-<p><img src="/posts/2942ffab/CI_8.jpg"></p>
+<p><img src="CI_8.jpg"></p>
 <h4 id="打开AppVeyor加密页面，加密Access-Token"><a href="#打开AppVeyor加密页面，加密Access-Token" class="headerlink" title="打开AppVeyor加密页面，加密Access Token"></a>打开AppVeyor加密页面，加密<code>Access Token</code></h4><p>因为生成的Token需要写进公开的脚本中，所以要进行加密</p>
-<p><img src="/posts/2942ffab/CI_9.jpg"></p>
+<p><img src="CI_9.jpg"></p>
 <p>复制加密的Token</p>
-<h4 id="在本地根目录下新建一个文件appveyor-yml"><a href="#在本地根目录下新建一个文件appveyor-yml" class="headerlink" title="在本地根目录下新建一个文件appveyor.yml"></a>在本地根目录下新建一个文件<code>appveyor.yml</code></h4><p><img src="/posts/2942ffab/CI_10.jpg"></p>
+<h4 id="在本地根目录下新建一个文件appveyor-yml"><a href="#在本地根目录下新建一个文件appveyor-yml" class="headerlink" title="在本地根目录下新建一个文件appveyor.yml"></a>在本地根目录下新建一个文件<code>appveyor.yml</code></h4><p><img src="CI_10.jpg"></p>
 <p>粘贴以下代码：其中<strong>将加密的Token粘贴进去</strong></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">clone_depth:</span> <span class="number">5</span>  </span><br><span class="line"></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="attr">access_token:</span></span><br><span class="line">    <span class="attr">secure:</span> <span class="comment">#### 从#开始删除，将加密的Token粘贴在此处 ####    </span></span><br><span class="line">    </span><br><span class="line"><span class="attr">install:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ps:</span> <span class="string">Install-Product</span> <span class="string">node</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">node</span> <span class="string">--version</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">--version</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-deployer-git</span> <span class="string">--save</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-archive</span> <span class="string">--save</span>   </span><br><span class="line">    <span class="comment">####### 根据自己需求，下载的hexo 插件 ##############</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-search</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">uninstall</span> <span class="string">hexo-generator-index</span> <span class="string">--save</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-index-pin-top</span> <span class="string">--save</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-asset-image</span> <span class="string">--save</span></span><br><span class="line">    <span class="comment">################################################</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">ls</span> <span class="string">--depth</span> <span class="number">0</span>  <span class="comment">#检查安装的插件</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">build_script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">artifacts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">public</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">on_success:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">credential.helper</span> <span class="string">store</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ps:</span> <span class="string">Add-Content</span> <span class="string">&quot;$env:USERPROFILE\.git-credentials&quot;</span> <span class="string">&quot;https://$($env:access_token):x-oauth-basic@github.com`n&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;%GIT_USER_EMAIL%&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;%GIT_USER_NAME%&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">clone</span> <span class="string">--depth</span> <span class="number">5</span> <span class="string">-q</span> <span class="string">--branch=%TARGET_BRANCH%</span> <span class="string">%STATIC_SITE_REPO%</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cd</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">del</span> <span class="string">*</span> <span class="string">/f</span> <span class="string">/q</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">for</span> <span class="string">/d</span> <span class="string">%%p</span> <span class="string">IN</span> <span class="string">(*)</span> <span class="string">do</span> <span class="string">rmdir</span> <span class="string">&quot;%%p&quot;</span> <span class="string">/s</span> <span class="string">/q</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">SETLOCAL</span> <span class="string">EnableDelayedExpansion</span> <span class="string">&amp;</span> <span class="string">robocopy</span> <span class="string">&quot;%APPVEYOR_BUILD_FOLDER%\public&quot;</span> <span class="string">&quot;%TEMP%\static-site&quot;</span> <span class="string">/e</span> <span class="string">&amp;</span> <span class="string">IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">1</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">3</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(exit</span> <span class="number">1</span><span class="string">))</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">add</span> <span class="string">-A</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">commit</span> <span class="string">-m</span> <span class="string">&quot;Update Static Site&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">push</span> <span class="string">origin</span> <span class="string">%TARGET_BRANCH%</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">appveyor</span> <span class="string">AddMessage</span> <span class="string">&quot;Static Site Updated&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="打开AppVeyor新建的项目界面，配置environment"><a href="#打开AppVeyor新建的项目界面，配置environment" class="headerlink" title="打开AppVeyor新建的项目界面，配置environment"></a>打开AppVeyor新建的项目界面，配置<code>environment</code></h4><p><img src="/posts/2942ffab/CI_12.jpg"></p>
+<h4 id="打开AppVeyor新建的项目界面，配置environment"><a href="#打开AppVeyor新建的项目界面，配置environment" class="headerlink" title="打开AppVeyor新建的项目界面，配置environment"></a>打开AppVeyor新建的项目界面，配置<code>environment</code></h4><p><img src="CI_12.jpg"></p>
 <h4 id="将文件上传到github"><a href="#将文件上传到github" class="headerlink" title="将文件上传到github"></a>将文件上传到github</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add -A   <span class="comment"># 暂存提交，和git add . 的区别是可以删除文件</span></span><br><span class="line">git commit -m <span class="string">&quot;first&quot;</span></span><br><span class="line">git push origin main   <span class="comment">#默认是master</span></span><br></pre></td></tr></table></figure>
 
 <p>此时已经基本完成所有操作，可以在Appveyor网站的<code>current build</code>观察到当前的构件情况</p>
-<p><img src="/posts/2942ffab/CI_13.jpg"></p>
+<p><img src="CI_13.jpg"></p>
 <p>可以看到最后成功了</p>
-<p><img src="/posts/2942ffab/CI_14.jpg"></p>
+<p><img src="CI_14.jpg"></p>
 <p>后面就可以通过向新建的备份文件仓库<code>push</code>文件就行了。</p>
 <p>如果换了新电脑，只需要将仓库的文件<code>clone </code>下来就行了</p>
 <h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><p>我在编译过程中发现没有Error，但是页面仍没有加载出来，而且什么都没有了。最后查看解析过程发现有一个 <code>No layout</code>的<code>Warn</code>。</p>
-<p><img src="/posts/2942ffab/CI_15.jpg"></p>
+<p><img src="CI_15.jpg"></p>
 <p>原来是因为上传主题，而主题里面有一个.git的隐藏文件，上传时会把这个主题当成一个独立的模块，导致页面生成失败。</p>
 <p>解决方案是：</p>
 <p>1.删除文件夹里面的.git文件夹</p>
@@ -457,39 +478,39 @@
 <p>这个注意：后面会用到。</p>
 <p>![](git_setup_branches.jpg）</p>
 <p>安装完成后<br>点击鼠标右键，出现下图图标，说明安装完成。</p>
-<p><img src="/posts/29cff741/check_git.png"><br>打开Git Bash,输入git –version,出现版本号，则表示安装完成。</p>
-<p><img src="/posts/29cff741/git_version.jpg"></p>
+<p><img src="check_git.png"><br>打开Git Bash,输入git –version,出现版本号，则表示安装完成。</p>
+<p><img src="git_version.jpg"></p>
 <h3 id="3-绑定SSH"><a href="#3-绑定SSH" class="headerlink" title="3.绑定SSH"></a>3.绑定SSH</h3><p>通过ssh协议生成公钥，将github和本地连接起来，完成后可以在本地通过gi命令上传文件</p>
 <p>在git bash 里面输入 ssh-keygen -t rsa,<strong>并敲四次回车</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 
 <p>生成两个文件，分别为秘钥 id_rsa 和公钥 id_rsa.pub</p>
 <p>一般在根目录的文件下，windows稍微特别，在用户文件里（C:/Users/用户名/.ssh）</p>
-<p><img src="/posts/29cff741/ssh-setup.jpg"></p>
+<p><img src="ssh-setup.jpg"></p>
 <p>用记事本打开 id_rsa.pub，并将其中内容全部复制</p>
-<p><img src="/posts/29cff741/ssh-setup2.jpg"><br>打开自己的github设置<br><img src="/posts/29cff741/ssh-setup3.jpg"></p>
+<p><img src="ssh-setup2.jpg"><br>打开自己的github设置<br><img src="ssh-setup3.jpg"></p>
 <p>选择SSH and GPG keys</p>
-<p><img src="/posts/29cff741/ssh-setup4.jpg"></p>
+<p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="/posts/29cff741/ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#x62;&#46;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#x62;&#46;&#99;&#111;&#x6d;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;">&#103;&#105;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
-<p><img src="/posts/29cff741/ssh-setup6.jpg"><br>新建项目</p>
-<p><img src="/posts/29cff741/ssh-setup7.jpg"><br>项目配置如下:</p>
-<p><img src="/posts/29cff741/ssh-setup8.jpg"><br>回到主页，点击刚建好的项目</p>
-<p><img src="/posts/29cff741/ssh-setup9.jpg"></p>
-<p>复制刚建好的项目网址<br><img src="/posts/29cff741/ssh-setup10.jpg"></p>
+<p><img src="ssh-setup6.jpg"><br>新建项目</p>
+<p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
+<p><img src="ssh-setup8.jpg"><br>回到主页，点击刚建好的项目</p>
+<p><img src="ssh-setup9.jpg"></p>
+<p>复制刚建好的项目网址<br><img src="ssh-setup10.jpg"></p>
 <p>在本地计算机新建一个文件夹，比如我的文件夹在(D:/MyBlog)</p>
 <p>然后在该文件下右键打开Cit bash输入：git clone 项目网址</p>
-<p><img src="/posts/29cff741/ssh-setup11.jpg"></p>
+<p><img src="ssh-setup11.jpg"></p>
 <h3 id="4-安装node-js"><a href="#4-安装node-js" class="headerlink" title="4.安装node.js"></a>4.安装<a href="https://nodejs.org/en/">node.js</a></h3><p>测试是否安装完成</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">node -v </span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
 
-<h4 id="配置npm在安装全局模块时的路径和缓存cache的路径"><a href="#配置npm在安装全局模块时的路径和缓存cache的路径" class="headerlink" title="配置npm在安装全局模块时的路径和缓存cache的路径"></a>配置npm在安装全局模块时的路径和缓存cache的路径</h4><p>因为在执行例如npm install webpack -g等命令全局安装的时候，默认会将模块安装在C:\Users\用户名\AppData\Roaming路径下的npm和npm_cache中，不方便管理且占用C盘空间，所以这里配置自定义的全局模块安装目录，在node.js安装目录下新建两个文件夹 node_global和node_cache，然后在cmd命令下执行如下两个命令：<br><img src="/posts/29cff741/ssh-setup12.jpg"></p>
+<h4 id="配置npm在安装全局模块时的路径和缓存cache的路径"><a href="#配置npm在安装全局模块时的路径和缓存cache的路径" class="headerlink" title="配置npm在安装全局模块时的路径和缓存cache的路径"></a>配置npm在安装全局模块时的路径和缓存cache的路径</h4><p>因为在执行例如npm install webpack -g等命令全局安装的时候，默认会将模块安装在C:\Users\用户名\AppData\Roaming路径下的npm和npm_cache中，不方便管理且占用C盘空间，所以这里配置自定义的全局模块安装目录，在node.js安装目录下新建两个文件夹 node_global和node_cache，然后在cmd命令下执行如下两个命令：<br><img src="ssh-setup12.jpg"></p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> prefix &quot;F:\Program Files\nodejs\node_global&quot;</span><br><span class="line">npm config <span class="built_in">set</span> cache &quot;F:\Program Files\nodejs\node_cache&quot;</span><br></pre></td></tr></table></figure>
 
-<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><p>在系统变量中新建一个变量名为 “NODE_PATH”<br><img src="/posts/29cff741/ssh-setup12.jpg"></p>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><p>在系统变量中新建一个变量名为 “NODE_PATH”<br><img src="ssh-setup12.jpg"></p>
 <p>编辑用户变量里的Path，将相应npm的路径改为如图所示：</p>
-<p><img src="/posts/29cff741/ssh-setup13.jpg"></p>
+<p><img src="ssh-setup13.jpg"></p>
 <h3 id="5-下载-webpack"><a href="#5-下载-webpack" class="headerlink" title="5.下载 webpack"></a>5.下载 webpack</h3><p>在cmd中执行</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure>
 
@@ -509,7 +530,7 @@
 <p>此时框架已经基本在本地布置完成:可以在 <a href="http://localhost:4000/">http://localhost:4000</a> 查看新部署的网页，ctrl+c停止运行</p>
 <p>将Hexo部署到GitHub</p>
 <p>用记事本打开当前文件夹下的 _config.yml 文件</p>
-<p>并在底部写上如下代码，需要把原来的deploy删除，另外冒号后面要有空格<br><img src="/posts/29cff741/ssh-setup13.jpg"><br>在MyBlog 文件夹中，右键打开 Git Bash，安装Git部署插件</p>
+<p>并在底部写上如下代码，需要把原来的deploy删除，另外冒号后面要有空格<br><img src="ssh-setup13.jpg"><br>在MyBlog 文件夹中，右键打开 Git Bash，安装Git部署插件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
 <p>生成静态网页，并提交到github上</p>
