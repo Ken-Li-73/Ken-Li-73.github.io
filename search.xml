@@ -289,25 +289,42 @@
     <title>博客优化：添加音乐</title>
     <url>/posts/ac324628/</url>
     <content><![CDATA[<p>​    自己的博客，搭配上自己的歌单，写起来才更方松。配置过程比较简单，在博客页面中添加Metingjs代码，接着填入歌单信息就行。</p>
+<ol>
+<li>扩展侧边栏代码，添加QQ音乐</li>
+</ol>
 <span id="more"></span>
 
-<h3 id="1-获取歌单信息"><a href="#1-获取歌单信息" class="headerlink" title="1.获取歌单信息"></a>1.获取歌单信息</h3><p>将自己的想添加的歌单分享出去，然后在浏览器上打开，其中的一串数，或者是<code>id=</code>，就是要获得信息。</p>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>我所使用的next的版本8.8.1。</p>
+<ul>
+<li><p>新版本的next配置文件在<code>/source/hexo-theme-next/_config.yml</code></p>
+</li>
+<li><p>旧版本的next配置文件在``/themes/next/_config.yml`</p>
+</li>
+<li><p>hexo5.0版本可以定义配置文件在<code>/_config.next.yml</code></p>
+</li>
+</ul>
+<h2 id="获取歌单信息"><a href="#获取歌单信息" class="headerlink" title="获取歌单信息"></a>获取歌单信息</h2><p>将自己的想添加的歌单分享出去，然后在浏览器上打开，其中的一串数，或者是<code>id=</code>，就是要获得信息。</p>
 <p><img src="config_0.jpg"></p>
-<h3 id="2-添加Metingjs代码到侧边栏"><a href="#2-添加Metingjs代码到侧边栏" class="headerlink" title="2.添加Metingjs代码到侧边栏"></a>2.添加Metingjs代码到侧边栏</h3><p>在<code>themes\next\layout\_macro\sidebar.swig</code>找到类名为<code>sidebar-inner</code>的代码块位置：</p>
+<h2 id="添加音乐代码"><a href="#添加音乐代码" class="headerlink" title="添加音乐代码"></a>添加音乐代码</h2><p>从<a href="https://blog.csdn.net/qq_39800978/article/details/109407258?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1.no_search_link&spm=1001.2101.3001.4242.2">Hexo博客设置背景音乐_Z先森9701的博客-CSDN博客</a>受到的启发，但由于是对源码进行修改，如果更新版本，则会产生代码冲突。因此最好是使用拓展的方式完成功能。</p>
+<h3 id="修改主题配置文件"><a href="#修改主题配置文件" class="headerlink" title="修改主题配置文件"></a>修改主题配置文件</h3><p>打开<code>/_config.next.yml</code>文件：(旧版本在<code>/themes/next/_config.yml</code>)</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="string">source/_data/sidebar.njk</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="新建sidebar-njk文件"><a href="#新建sidebar-njk文件" class="headerlink" title="新建sidebar.njk文件"></a>新建sidebar.njk文件</h3><p>新建<code>/source/_data/sidebar.njk</code>文件，并添加如下代码：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- require APlayer --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- require MetingJS--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--playlist外链地址--&gt;</span>   </span><br><span class="line"><span class="tag">&lt;<span class="name">meting-js</span></span></span><br><span class="line"><span class="tag">           <span class="attr">server</span>=<span class="string">&quot;tencent&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">type</span>=<span class="string">&quot;playlist&quot;</span> </span></span><br><span class="line"><span class="tag">           <span class="attr">id</span>=<span class="string">&quot;8239047461&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">mini</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">fixed</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">list-folded</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">autoplay</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">volume</span>=<span class="string">&quot;0.4&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">theme</span>=<span class="string">&quot;#FADFA3&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">order</span>=<span class="string">&quot;list&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">loop</span>=<span class="string">&quot;all&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">preload</span>=<span class="string">&quot;auto&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">lrc-type</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">mutex</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">meting-js</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="config_1.jpg"></p>
 <p>代码的具体含义可以参照官方文档：<a href="https://aplayer.js.org/#/home">APlayer</a>，<a href="https://github.com/metowolf/MetingJS">MetingJS</a>。</p>
 <p>其中<code>server</code>,<code> type</code>,<code>id</code>,需要修改，我这里使用的是QQ音乐的歌单</p>
-<h3 id="3-实现全局播放"><a href="#3-实现全局播放" class="headerlink" title="3.实现全局播放"></a>3.实现全局播放</h3><p>打开<code>themes\next\layout</code>文件夹找到<code>_layout.swig</code>，并复制以下代码到<code>&lt;head&gt;</code>标签后</p>
+<h2 id="实现全局播放"><a href="#实现全局播放" class="headerlink" title="实现全局播放"></a>实现全局播放</h2><p>但测试next8.8.0之后不用，如果不行，可以接着向下看：</p>
+<h3 id="修改主题配置文件-1"><a href="#修改主题配置文件-1" class="headerlink" title="修改主题配置文件"></a>修改主题配置文件</h3><p>打开<code>/_config.next.yml</code>文件：(旧版本在<code>/themes/next/_config.yml</code>)</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="string">source/_data/head.njk</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="新建head-njk文件"><a href="#新建head-njk文件" class="headerlink" title="新建head.njk文件"></a>新建head.njk文件</h3><p>新建<code>/source/_data/head.njk</code>文件，并添加如下代码：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--pjax：防止跳转页面音乐暂停--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="config_2.jpg"></p>
-<p>在<code>themes\next\_config.yml</code>中找到<code>pjax</code>，将它设置为<code>true</code></p>
+<p>打开<code>/_config.next.yml</code>文件中找到<code>pjax</code>，将它设置为<code>true</code>：(旧版本在<code>/themes/next/_config.yml</code>)</p>
 <p><img src="config_3.jpg"></p>
 <p>后面就可以通过<code>hexo</code>命令生成界面了。</p>
 <p><img src="config_4.jpg"></p>
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://blog.csdn.net/qq_39800978/article/details/109407258?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1.no_search_link&spm=1001.2101.3001.4242.2">Hexo博客设置背景音乐_Z先森9701的博客-CSDN博客</a></p>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -521,7 +538,7 @@
 <p>选择SSH and GPG keys</p>
 <p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
