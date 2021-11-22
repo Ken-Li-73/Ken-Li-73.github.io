@@ -30,33 +30,33 @@
     <content><![CDATA[<p>使用实验室的485转网口的转换器，完成485传感器的tcp通讯。</p>
 <span id="more"></span>
 
-<h3 id="实验设备："><a href="#实验设备：" class="headerlink" title="实验设备："></a>实验设备：</h3><ul>
+<h2 id="实验设备："><a href="#实验设备：" class="headerlink" title="实验设备："></a>实验设备：</h2><ul>
 <li>通讯转换模块（USR-DR302）</li>
 <li>485传感器（WT61-PC485)</li>
 </ul>
-<h3 id="1-连接线路"><a href="#1-连接线路" class="headerlink" title="1.连接线路"></a>1.连接线路</h3><p>正确连接转换器上的接口：</p>
+<h2 id="连接线路"><a href="#连接线路" class="headerlink" title="连接线路"></a>连接线路</h2><p>正确连接转换器上的接口：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PC(网口)&lt;----网口----&gt;转换器（USR-DR302）&lt;----A/T和B/R----&gt;485传感器（WT61-PC485）</span><br></pre></td></tr></table></figure>
 
 <p><strong>正确连接信号线和电源线</strong>，信号灯会进行闪烁。</p>
-<h3 id="2-配置PC端IP"><a href="#2-配置PC端IP" class="headerlink" title="2.配置PC端IP"></a>2.配置PC端IP</h3><p>打开电脑的网络设置，设置以太网Ipv4分配。</p>
+<h2 id="配置PC端IP"><a href="#配置PC端IP" class="headerlink" title="配置PC端IP"></a>配置PC端IP</h2><p>打开电脑的网络设置，设置以太网Ipv4分配。</p>
 <p><img src="connect_2.jpg"></p>
-<h3 id="3-配置通讯转换器（USR-DR302）"><a href="#3-配置通讯转换器（USR-DR302）" class="headerlink" title="3.配置通讯转换器（USR-DR302）"></a>3.配置通讯转换器（USR-DR302）</h3><p>在浏览器上输入ip地址<code>192.168.0.7</code>会弹出一个页面。</p>
+<h2 id="配置通讯转换器（USR-DR302）"><a href="#配置通讯转换器（USR-DR302）" class="headerlink" title="配置通讯转换器（USR-DR302）"></a>配置通讯转换器（USR-DR302）</h2><p>在浏览器上输入ip地址<code>192.168.0.7</code>会弹出一个页面。</p>
 <p><img src="connect_3.jpg"></p>
 <p>如果没有弹出页面：</p>
 <ul>
 <li>一种可能是线路连接问题，检查一遍线路。</li>
 <li>还有一种可能是将设备模块的<code>默认ip</code>被修改了，可以通过<a href="https://www.usr.cn/Down/USR-DR302_V1.0.3.pdf">串口AT指令</a>查询或者<code>重置</code>。</li>
 </ul>
-<h3 id="4-配置本机ip设置"><a href="#4-配置本机ip设置" class="headerlink" title="4.配置本机ip设置"></a>4.配置本机ip设置</h3><p><img src="connect_4.jpg"></p>
+<h2 id="配置本机ip设置"><a href="#配置本机ip设置" class="headerlink" title="配置本机ip设置"></a>配置本机ip设置</h2><p><img src="connect_4.jpg"></p>
 <p>除了<code>ip地址</code>不同（不冲突，建议默认），其他的<code>子网掩码</code>，<code>网关地址</code>，<code>DNS服务器</code>和在PC配置的<code>IPv4</code>一样。完成后，<code>重启</code>模块。</p>
-<h3 id="5-配置端口参数"><a href="#5-配置端口参数" class="headerlink" title="5.配置端口参数"></a>5.配置端口参数</h3><p><img src="connect_5.jpg"></p>
+<h2 id="配置端口参数"><a href="#配置端口参数" class="headerlink" title="配置端口参数"></a>配置端口参数</h2><p><img src="connect_5.jpg"></p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">波特率:</span> <span class="number">9600</span>    <span class="comment">#所使用的传感器在这个频段，WT61-PC485在这个频段</span></span><br><span class="line"><span class="string">本地端口:</span> <span class="number">8000</span>	<span class="comment">#可以随意给一个</span></span><br><span class="line"><span class="string">工作方式:</span> <span class="string">TCP</span> <span class="string">Server</span> </span><br></pre></td></tr></table></figure>
 
 <p>完成后，<code>重启</code>模块</p>
-<h3 id="6-配置扩散功能"><a href="#6-配置扩散功能" class="headerlink" title="6.配置扩散功能"></a>6.配置扩散功能</h3><p>打开<code>Modbus TCP</code>功能</p>
+<h2 id="配置扩散功能"><a href="#配置扩散功能" class="headerlink" title="配置扩散功能"></a>配置扩散功能</h2><p>打开<code>Modbus TCP</code>功能</p>
 <p><img src="connect_6.jpg"></p>
 <p>完成后，<code>重启</code>模块</p>
-<h3 id="7-测试通讯"><a href="#7-测试通讯" class="headerlink" title="7.测试通讯"></a>7.测试通讯</h3><p>打开<a href="https://www.usr.cn/Down/Software/USR-TCP232-Test-V1.3.exe">TCP串口调试助手</a>，或者网络调试助手。</p>
+<h2 id="测试通讯"><a href="#测试通讯" class="headerlink" title="测试通讯"></a>测试通讯</h2><p>打开<a href="https://www.usr.cn/Down/Software/USR-TCP232-Test-V1.3.exe">TCP串口调试助手</a>，或者网络调试助手。</p>
 <p><img src="connect_7.jpg"></p>
 <p>按图示操作，中间区域出现所要接收的报文，说明通讯成功。</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">协议类型:</span> <span class="string">TCP</span> <span class="string">Client</span>    </span><br><span class="line"><span class="string">服务器IP地址:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.7</span>	<span class="comment">#转换器模块的IP地址</span></span><br><span class="line"><span class="string">服务器端口号:</span> <span class="number">8000</span>		<span class="comment">#转换器模块的本地端口</span></span><br><span class="line"></span><br><span class="line"><span class="string">报文:</span> </span><br><span class="line">	<span class="string">modbusTCP表头:</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">06</span> 		<span class="comment">#后两个字节是数据报文的长度</span></span><br><span class="line">	<span class="string">数据报文:</span> <span class="number">50</span> <span class="number">03</span> <span class="number">00</span> <span class="string">3d</span> <span class="number">00</span> <span class="number">03</span>			<span class="comment">#除去CRC校验码的报文</span></span><br></pre></td></tr></table></figure>
@@ -73,12 +73,21 @@
     <title>解决next主题搜索栏被遮挡的原因</title>
     <url>/posts/d62d9cd6/</url>
     <content><![CDATA[<p>使用next主题美化博客，当打开本地搜索功能时，发现搜索栏被遮挡在下面。</p>
+<ol>
+<li>修改属性将搜索栏置顶</li>
+</ol>
 <span id="more"></span>
 
-<p>这是next主题CSS的问题，可以使用<code>z-index</code>属性来调节样式。打开根目录下<code>/themes/next/source/css/_common/outline/header/header.styl</code>文件。找到<code>.head-inner</code>添加<code>z-index: 9999;</code></p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.header-inner</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="variable">$content</span>-desktop;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">9999</span>;</span><br><span class="line">  +desktop-large() &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="variable">$content</span>-desktop-large;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>这是next主题CSS的问题，可以使用<code>z-index</code>属性来调节样式。</p>
+<p>打开根目录下<code>./_config.next.syml</code>文件(老版本文件在<code>./themes/next/_config.syml</code>)找到<code>custom_file_path:</code>修改为：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
 
-<p>重新构件页面，问题解决。</p>
+
+
+<p>打开根目录下<code>./source/_data/styles.styl</code>文件。找到<code>.head-inner属性</code>添加<code>z-index: 9999;</code>(没有就自己创建)</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.header-inner</span> &#123;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">9999</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重新构建页面，问题解决。</p>
 <p><img src="result.jpg"></p>
 ]]></content>
       <tags>
@@ -285,7 +294,7 @@
 <h3 id="1-获取歌单信息"><a href="#1-获取歌单信息" class="headerlink" title="1.获取歌单信息"></a>1.获取歌单信息</h3><p>将自己的想添加的歌单分享出去，然后在浏览器上打开，其中的一串数，或者是<code>id=</code>，就是要获得信息。</p>
 <p><img src="config_0.jpg"></p>
 <h3 id="2-添加Metingjs代码到侧边栏"><a href="#2-添加Metingjs代码到侧边栏" class="headerlink" title="2.添加Metingjs代码到侧边栏"></a>2.添加Metingjs代码到侧边栏</h3><p>在<code>themes\next\layout\_macro\sidebar.swig</code>找到类名为<code>sidebar-inner</code>的代码块位置：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- require APlayer --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- require MetingJS--&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line">      <span class="comment">&lt;!--playlist外链地址--&gt;</span>   </span><br><span class="line">      <span class="tag">&lt;<span class="name">meting-js</span></span></span><br><span class="line"><span class="tag">          <span class="attr">server</span>=<span class="string">&quot;tencent&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">type</span>=<span class="string">&quot;playlist&quot;</span> </span></span><br><span class="line"><span class="tag">          <span class="attr">id</span>=<span class="string">&quot;8239047461&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">mini</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">fixed</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">list-folded</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">autoplay</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">volume</span>=<span class="string">&quot;0.4&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">theme</span>=<span class="string">&quot;#FADFA3&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">order</span>=<span class="string">&quot;list&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">loop</span>=<span class="string">&quot;all&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">preload</span>=<span class="string">&quot;auto&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">lrc-type</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">mutex</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">meting-js</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- require APlayer --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- require MetingJS--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--playlist外链地址--&gt;</span>   </span><br><span class="line"><span class="tag">&lt;<span class="name">meting-js</span></span></span><br><span class="line"><span class="tag">           <span class="attr">server</span>=<span class="string">&quot;tencent&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">type</span>=<span class="string">&quot;playlist&quot;</span> </span></span><br><span class="line"><span class="tag">           <span class="attr">id</span>=<span class="string">&quot;8239047461&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">mini</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">fixed</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">list-folded</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">autoplay</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">volume</span>=<span class="string">&quot;0.4&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">theme</span>=<span class="string">&quot;#FADFA3&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">order</span>=<span class="string">&quot;list&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">loop</span>=<span class="string">&quot;all&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">preload</span>=<span class="string">&quot;auto&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">lrc-type</span>=<span class="string">&quot;1&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">mutex</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">meting-js</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="config_1.jpg"></p>
 <p>代码的具体含义可以参照官方文档：<a href="https://aplayer.js.org/#/home">APlayer</a>，<a href="https://github.com/metowolf/MetingJS">MetingJS</a>。</p>
@@ -476,30 +485,31 @@
     <title>搭建博客-基于hexo-github</title>
     <url>/posts/29cff741/</url>
     <content><![CDATA[<p>自己搭建一个博客，可以锻炼自己的能力， 也可以去记录一下自己的心得。本文是将资源托管于github仓库，基于hexo搭建的，下面是我自己记录的搭建过程。</p>
-<p>我使用的软件及版本如下：</p>
-<ul>
-<li><p>node  V16.13.0</p>
-</li>
-<li><p>git     Version 2.33.1.windows.1</p>
-</li>
-</ul>
+<ol>
+<li>git的安装和使用</li>
+<li>nodejs的安装和使用</li>
+<li>hexo的安装和使用</li>
+</ol>
 <span id="more"></span>
 
-<h3 id="1-注册一个gitHub的账号"><a href="#1-注册一个gitHub的账号" class="headerlink" title="1.注册一个gitHub的账号"></a>1.注册一个gitHub的账号</h3><p>如果进不去<a href="https://www.github.com/">github</a>的官网，则在本地hosts的文件(C:\Windows\System32\drivers\etc)添加:</p>
+<p>我使用的软件及版本如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">git:</span> <span class="number">2.33</span><span class="number">.1</span><span class="string">.windows.1</span></span><br><span class="line"><span class="attr">node:</span> <span class="number">16.13</span><span class="number">.0</span></span><br><span class="line"><span class="attr">hexo:</span> <span class="number">5.4</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="git的安装和使用"><a href="#git的安装和使用" class="headerlink" title="git的安装和使用"></a>git的安装和使用</h2><h3 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h3><p>如果进不去<a href="https://www.github.com/">github</a>的官网，则在本地hosts的文件(C:\Windows\System32\drivers\etc)添加:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//这个ip可能会变化</span></span><br><span class="line"><span class="number">140.82</span><span class="number">.114</span><span class="number">.4</span> github.com</span><br><span class="line"><span class="number">185.199</span><span class="number">.108</span><span class="number">.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">199.232</span><span class="number">.69</span><span class="number">.194</span> github.global.ssl.fastly.net</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>host的文件修改需要权限</li>
 <li><a href="https://www.ipaddress.com/">IPAddress.com</a>网站,查询上面三个地址ip</li>
 </ul>
-<h3 id="2-安装git。"><a href="#2-安装git。" class="headerlink" title="2.安装git。"></a>2.安装git。</h3><p>下载网址：<a href="https://git-scm.com/">https://git-scm.com/</a></p>
+<h3 id="安装git。"><a href="#安装git。" class="headerlink" title="安装git。"></a>安装git。</h3><p>下载网址：<a href="https://git-scm.com/">https://git-scm.com/</a></p>
 <p>路径自定义，其他的默认安装即可。</p>
 <p>这个注意：后面会用到。</p>
 <p>![](git_setup_branches.jpg）</p>
 <p>安装完成后<br>点击鼠标右键，出现下图图标，说明安装完成。</p>
 <p><img src="check_git.png"><br>打开Git Bash,输入git –version,出现版本号，则表示安装完成。</p>
 <p><img src="git_version.jpg"></p>
-<h3 id="3-绑定SSH"><a href="#3-绑定SSH" class="headerlink" title="3.绑定SSH"></a>3.绑定SSH</h3><p>通过ssh协议生成公钥，将github和本地连接起来，完成后可以在本地通过gi命令上传文件</p>
+<h3 id="绑定SSH"><a href="#绑定SSH" class="headerlink" title="绑定SSH"></a>绑定SSH</h3><p>通过ssh协议生成公钥，将github和本地连接起来，完成后可以在本地通过gi命令上传文件</p>
 <p>在git bash 里面输入 ssh-keygen -t rsa,<strong>并敲四次回车</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 
@@ -511,7 +521,7 @@
 <p>选择SSH and GPG keys</p>
 <p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#111;&#x6d;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#x67;&#x69;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#x6f;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
@@ -521,39 +531,38 @@
 <p>在本地计算机新建一个文件夹，比如我的文件夹在(D:/MyBlog)</p>
 <p>然后在该文件下右键打开Cit bash输入：git clone 项目网址</p>
 <p><img src="ssh-setup11.jpg"></p>
-<h3 id="4-安装node-js"><a href="#4-安装node-js" class="headerlink" title="4.安装node.js"></a>4.安装<a href="https://nodejs.org/en/">node.js</a></h3><p>测试是否安装完成</p>
+<p>此时已经将本地文件夹和远程仓库绑定了。</p>
+<h2 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装<a href="https://nodejs.org/en/">node.js</a></h2><h3 id="测试安装"><a href="#测试安装" class="headerlink" title="测试安装"></a>测试安装</h3><p>从<a href="https://nodejs.org/en/">node.js</a>官方下载安装，在<code>cmd</code>中检查是否安装成功</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">node -v </span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
 
-<h4 id="配置npm在安装全局模块时的路径和缓存cache的路径"><a href="#配置npm在安装全局模块时的路径和缓存cache的路径" class="headerlink" title="配置npm在安装全局模块时的路径和缓存cache的路径"></a>配置npm在安装全局模块时的路径和缓存cache的路径</h4><p>因为在执行例如npm install webpack -g等命令全局安装的时候，默认会将模块安装在C:\Users\用户名\AppData\Roaming路径下的npm和npm_cache中，不方便管理且占用C盘空间，所以这里配置自定义的全局模块安装目录，在node.js安装目录下新建两个文件夹 node_global和node_cache，然后在cmd命令下执行如下两个命令：<br><img src="ssh-setup12.jpg"></p>
+<h3 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h3><p>因为在执行例如npm install webpack -g等命令全局安装的时候，默认会将模块安装在C:\Users\用户名\AppData\Roaming路径下的npm和npm_cache中，不方便管理且占用C盘空间，所以这里配置自定义的全局模块安装目录，在node.js安装目录下新建两个文件夹 node_global和node_cache，然后在cmd命令下执行如下两个命令：<br><img src="ssh-setup12.jpg"></p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> prefix &quot;F:\Program Files\nodejs\node_global&quot;</span><br><span class="line">npm config <span class="built_in">set</span> cache &quot;F:\Program Files\nodejs\node_cache&quot;</span><br></pre></td></tr></table></figure>
 
-<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><p>在系统变量中新建一个变量名为 “NODE_PATH”<br><img src="ssh-setup12.jpg"></p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>在系统变量中新建一个变量名为 “NODE_PATH”<br><img src="ssh-setup12.jpg"></p>
 <p>编辑用户变量里的Path，将相应npm的路径改为如图所示：</p>
 <p><img src="ssh-setup13.jpg"></p>
-<h3 id="5-下载-webpack"><a href="#5-下载-webpack" class="headerlink" title="5.下载 webpack"></a>5.下载 webpack</h3><p>在cmd中执行</p>
+<h3 id="测试npm模块"><a href="#测试npm模块" class="headerlink" title="测试npm模块"></a>测试npm模块</h3><p>在cmd中执行</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure>
 
 <p>执行 npm webpack -v，查看webpack是否安装成功，</p>
-<h3 id="6-安装Hexo"><a href="#6-安装Hexo" class="headerlink" title="6.安装Hexo"></a>6.安装Hexo</h3><p>点开MyBlog 文件夹，鼠标右键打开 Git Bush Here，输入：</p>
+<h2 id="Hexo安装和使用"><a href="#Hexo安装和使用" class="headerlink" title="Hexo安装和使用"></a>Hexo安装和使用</h2><h3 id="下载hexo"><a href="#下载hexo" class="headerlink" title="下载hexo"></a>下载hexo</h3><p>点开MyBlog 文件夹，鼠标右键打开 Git Bush Here，输入：</p>
 <figure class="highlight plaintext"><figcaption><span>bash</span></figcaption><table><tr><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure>
 
-<p>初始化博客：</p>
-<figure class="highlight plaintext"><figcaption><span>bash</span></figcaption><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<h3 id="初始化hexo"><a href="#初始化hexo" class="headerlink" title="初始化hexo"></a>初始化hexo</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
 
-<p>在本地静态部署：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<h3 id="本地静态部署"><a href="#本地静态部署" class="headerlink" title="本地静态部署"></a>本地静态部署</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo g 	<span class="comment">#生成网站静态文件</span></span><br></pre></td></tr></table></figure>
 
 <p>在本地查看：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
 
 <p>此时框架已经基本在本地布置完成:可以在 <a href="http://localhost:4000/">http://localhost:4000</a> 查看新部署的网页，ctrl+c停止运行</p>
 <p>将Hexo部署到GitHub</p>
 <p>用记事本打开当前文件夹下的 _config.yml 文件</p>
-<p>并在底部写上如下代码，需要把原来的deploy删除，另外冒号后面要有空格<br><img src="ssh-setup13.jpg"><br>在MyBlog 文件夹中，右键打开 Git Bash，安装Git部署插件</p>
+<p>并在底部写上如下代码，需要把原来的deploy删除，另外冒号后面要有空格<br><img src="ssh-setup13.jpg"></p>
+<h3 id="安装Git部署插件"><a href="#安装Git部署插件" class="headerlink" title="安装Git部署插件"></a>安装Git部署插件</h3><p>单平台部署可以不安装</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
-<p>生成静态网页，并提交到github上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean   #清除缓存文件和已生成的静态文件</span><br><span class="line">hexo g       #生成网站静态文件</span><br><span class="line">hexo d       #部署到github上的仓库</span><br></pre></td></tr></table></figure>
+<h3 id="提交到github"><a href="#提交到github" class="headerlink" title="提交到github"></a>提交到github</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean   #清除缓存文件和已生成的静态文件</span><br><span class="line">hexo g       #生成网站静态文件</span><br><span class="line">hexo d       #部署到github上的仓库</span><br></pre></td></tr></table></figure>
 
 <p>此时你输入你项目的网址’http://用户名.github.io, 就可以访问自己的博客了。</p>
 <p>hexo d 是上传到github上，如果你频繁的修改文件，或者只想暂时查看一下布局，可以选择：</p>
@@ -567,7 +576,6 @@
 <li>github仓库托管网页，可以实现联网和资源的放置。<br>另外github托管的网页，不会被爬虫检索，即在百度上搜索不到</li>
 </ul>
 <h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://blog.csdn.net/antma/article/details/86104068">配置nodejs教程</a></p>
-<p>如果想要详细配置可以参考这篇文章：</p>
 <p><a href="https://zhuanlan.zhihu.com/p/102592286">从零开始搭建个人博客（超详细）</a></p>
 ]]></content>
       <categories>
