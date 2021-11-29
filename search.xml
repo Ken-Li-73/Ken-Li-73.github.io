@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>新的开始</title>
-    <url>/posts/b7d5754b/</url>
-    <content><![CDATA[<p>弄了一天，终于搭建了一个看的过去的框架，感觉有好多心得要写，却又不知道从何下手。</p>
-<ul>
-<li><p>慢慢美化自己的博客</p>
-</li>
-<li><p>慢慢做自己的心得体会</p>
-</li>
-<li><p>慢慢成长</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(alive)&#123;</span><br><span class="line">    sleep();</span><br><span class="line">    eat();</span><br><span class="line">    code();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>-心得</category>
-      </categories>
-      <tags>
-        <tag>-心得</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>如何通过USR-DR302与485传感器建立连接</title>
     <url>/posts/dda0e464/</url>
     <content><![CDATA[<p>使用实验室的485转网口的转换器，完成485传感器的tcp通讯。</p>
@@ -259,9 +235,12 @@
     <title>博客优化：添加评论</title>
     <url>/posts/7c915937/</url>
     <content><![CDATA[<p>​    一篇心得，与人分享，怎么可以没有讨论呢，因此一篇文章的评论功能是必不可少的。</p>
+<ol>
+<li>插入来必力评论系统</li>
+</ol>
 <span id="more"></span>
 
-<h3 id="注册来必力-账号"><a href="#注册来必力-账号" class="headerlink" title="注册来必力 账号"></a>注册<a href="http://livere.com/">来必力 </a>账号</h3><p>验证邮箱就可以完成验证</p>
+<h2 id="来必力评论系统"><a href="#来必力评论系统" class="headerlink" title="来必力评论系统"></a>来必力评论系统</h2><h3 id="注册来必力-账号"><a href="#注册来必力-账号" class="headerlink" title="注册来必力 账号"></a>注册<a href="http://livere.com/">来必力 </a>账号</h3><p>验证邮箱就可以完成验证</p>
 <p><img src="sign_1.jpg"></p>
 <p>登录来必力账号，选择<code>安装</code>，安装免费版</p>
 <p><img src="sign_2.jpg"></p>
@@ -340,6 +319,9 @@
     <title>博客优化：文章链接</title>
     <url>/posts/706fbb62/</url>
     <content><![CDATA[<p>​    hexo生成的链接的格式和文章的时间标题有关，当更换标题或者时间时，就会改变链接地址，导致产生死链。因此将其替换掉是一个一劳永逸的方法。</p>
+<ol>
+<li>使用hexo-abbrlink，永久固定链接</li>
+</ol>
 <span id="more"></span>
 
 <p>连接在修改容易造成死链由于博客文章永久链接格式是：</p>
@@ -422,35 +404,39 @@
     <title>博客优化：持续集成</title>
     <url>/posts/2942ffab/</url>
     <content><![CDATA[<p>​    通过AppVeyor将博客的编译的过程托管出去，一次配置，一劳永逸。</p>
+<ol>
+<li>从本地选择性上传博客源文件</li>
+<li>使用AppVeyor在线编译github的文件</li>
+</ol>
 <span id="more"></span>
 
 <p>这一篇是在上一篇如何基于hexo+github搭建个人博客之后进行的。</p>
 <p>首先为什么会写这么一篇文章，一方面是为了记录一下自己的搭建心得，另一方面当然是为了方便了。</p>
 <p>在本地电脑上配置好所有的hexo环境之后，写好的md.文件只能在本地通过<code>hexo  -g</code> 编译，而且只能在这一台电脑上完成，如果你换一台电脑，或者硬盘崩了，都需要重新配置。</p>
 <p>如果我们把编译的过程托管出去，而我们只需要向github提交文件，就会简单很多。</p>
-<h3 id="1-在GitHub上备份hexo编译环境和博文"><a href="#1-在GitHub上备份hexo编译环境和博文" class="headerlink" title="1.在GitHub上备份hexo编译环境和博文"></a>1.在<a href="https://github.com/">GitHub</a>上备份hexo编译环境和博文</h3><h4 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h4><p><img src="start_a_project.jpg"></p>
+<h2 id="GitHub备份源文件"><a href="#GitHub备份源文件" class="headerlink" title="GitHub备份源文件"></a><a href="https://github.com/">GitHub</a>备份源文件</h2><h3 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h3><p><img src="start_a_project.jpg"></p>
 <p>权限设为public</p>
 <p><img src="start_a_project2.jpg"></p>
 <p>初始化本地仓库（使用hexo搭建的本地文件夹,也就是原来使用<code>hexo -g</code>的站点目录）</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin 新建仓库的网址</span><br></pre></td></tr></table></figure>
 
 <p><img src="start_a_project3.jpg"></p>
-<h4 id="修改-gitignore文件"><a href="#修改-gitignore文件" class="headerlink" title="修改.gitignore文件"></a>修改<code>.gitignore</code>文件</h4><p>由于目录下一些文件是通过hexo -g 生成的，所以不需要去备份。</p>
+<h3 id="修改-gitignore文件"><a href="#修改-gitignore文件" class="headerlink" title="修改.gitignore文件"></a>修改<code>.gitignore</code>文件</h3><p>由于目录下一些文件是通过hexo -g 生成的，所以不需要去备份。</p>
 <p>在<code>.gitignore</code>文件添加不需要上传的文件如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line">package-lock.json</span><br></pre></td></tr></table></figure>
 
-<h4 id="上传文件到github"><a href="#上传文件到github" class="headerlink" title="上传文件到github"></a>上传文件到github</h4><p>在上传之前，如果你使用的是github上下载的主题，<strong>请一定要删除里面的<code>.git</code>隐藏文件</strong>，否则构建完成后，会缺少一部分页面元素</p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>在上传之前，如果你使用的是github上下载的主题，<strong>请一定要删除里面的<code>.git</code>隐藏文件</strong>，否则构建完成后，会缺少一部分页面元素</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .				#添加当前目录下的所有文件到暂存区</span><br><span class="line">git commit -m &quot;hexo source&quot;		#将暂存区内容添加到仓库中。	</span><br><span class="line">git push origin main			#将本地的分支版本上传到远程并合并,一般默认的分支是master,我的是main</span><br></pre></td></tr></table></figure>
 
 <p>此时查看自己的仓库，应该已经有了文件。</p>
-<h3 id="2-实现持续集成"><a href="#2-实现持续集成" class="headerlink" title="2.实现持续集成"></a>2.实现持续集成</h3><p>访问<a href="https://ci.appveyor.com/login">AppVeyor</a></p>
-<p>Appveyor对于windows支持比较友好，支持代码提交到github。</p>
+<h2 id="注册AppVeyor"><a href="#注册AppVeyor" class="headerlink" title="注册AppVeyor"></a>注册AppVeyor</h2><h3 id="登录AppVeyor"><a href="#登录AppVeyor" class="headerlink" title="登录AppVeyor"></a>登录<a href="https://ci.appveyor.com/login">AppVeyor</a></h3><p>Appveyor对于windows支持比较友好，支持代码提交到github。</p>
 <p><img src="CI_1.jpg"></p>
 <p>第一次登录时，会让github授权，同意就行。</p>
-<h4 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h4><p><img src="CI_2.jpg"></p>
+<h3 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h3><p><img src="CI_2.jpg"></p>
 <p>选择在github上新建的仓库</p>
 <p><img src="CI_3.jpg"></p>
-<h4 id="打开github设置Settings"><a href="#打开github设置Settings" class="headerlink" title="打开github设置Settings"></a>打开github设置<code>Settings</code></h4><p><img src="CI_4.jpg"></p>
+<h2 id="设置访问权限"><a href="#设置访问权限" class="headerlink" title="设置访问权限"></a>设置访问权限</h2><h3 id="生成访问令牌"><a href="#生成访问令牌" class="headerlink" title="生成访问令牌"></a>生成访问令牌</h3><p>打开github设置<code>Settings</code></p>
+<p><img src="CI_4.jpg"></p>
 <p>选择<code>Developer Settings</code></p>
 <p><img src="CI_5.jpg"></p>
 <p>选择<code>Personal access tokens</code></p>
@@ -460,15 +446,18 @@
 <p>配置完成后，下滑到最后，点击<code>Generate token1</code> 生成tokens</p>
 <p>复制<code>Access Token</code></p>
 <p><img src="CI_8.jpg"></p>
-<h4 id="打开AppVeyor加密页面，加密Access-Token"><a href="#打开AppVeyor加密页面，加密Access-Token" class="headerlink" title="打开AppVeyor加密页面，加密Access Token"></a>打开AppVeyor加密页面，加密<code>Access Token</code></h4><p>因为生成的Token需要写进公开的脚本中，所以要进行加密</p>
+<h3 id="加密Access-Token"><a href="#加密Access-Token" class="headerlink" title="加密Access Token"></a>加密<code>Access Token</code></h3><p>因为生成的Token需要写进公开的脚本中，所以要进行加密。</p>
+<p>打开AppVeyor加密页面，进行如下操作：</p>
 <p><img src="CI_9.jpg"></p>
 <p>复制加密的Token</p>
-<h4 id="在本地根目录下新建一个文件appveyor-yml"><a href="#在本地根目录下新建一个文件appveyor-yml" class="headerlink" title="在本地根目录下新建一个文件appveyor.yml"></a>在本地根目录下新建一个文件<code>appveyor.yml</code></h4><p><img src="CI_10.jpg"></p>
+<h3 id="配置appveyor-yml"><a href="#配置appveyor-yml" class="headerlink" title="配置appveyor.yml"></a>配置<code>appveyor.yml</code></h3><p>在本地配置根目录下新建一个文件<code>appveyor.yml</code></p>
+<p><img src="CI_10.jpg"></p>
 <p>粘贴以下代码：其中<strong>将加密的Token粘贴进去</strong></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">clone_depth:</span> <span class="number">5</span>  </span><br><span class="line"></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="attr">access_token:</span></span><br><span class="line">    <span class="attr">secure:</span> <span class="comment">#### 从#开始删除，将加密的Token粘贴在此处 ####    </span></span><br><span class="line">    </span><br><span class="line"><span class="attr">install:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ps:</span> <span class="string">Install-Product</span> <span class="string">node</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">node</span> <span class="string">--version</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">--version</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-deployer-git</span> <span class="string">--save</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-archive</span> <span class="string">--save</span>   </span><br><span class="line">    <span class="comment">####### 根据自己需求，下载的hexo 插件 ##############</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-search</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">uninstall</span> <span class="string">hexo-generator-index</span> <span class="string">--save</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-index-pin-top</span> <span class="string">--save</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-asset-image</span> <span class="string">--save</span></span><br><span class="line">    <span class="comment">################################################</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">ls</span> <span class="string">--depth</span> <span class="number">0</span>  <span class="comment">#检查安装的插件</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">build_script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">artifacts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">public</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">on_success:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">credential.helper</span> <span class="string">store</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ps:</span> <span class="string">Add-Content</span> <span class="string">&quot;$env:USERPROFILE\.git-credentials&quot;</span> <span class="string">&quot;https://$($env:access_token):x-oauth-basic@github.com`n&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;%GIT_USER_EMAIL%&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;%GIT_USER_NAME%&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">clone</span> <span class="string">--depth</span> <span class="number">5</span> <span class="string">-q</span> <span class="string">--branch=%TARGET_BRANCH%</span> <span class="string">%STATIC_SITE_REPO%</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cd</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">del</span> <span class="string">*</span> <span class="string">/f</span> <span class="string">/q</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">for</span> <span class="string">/d</span> <span class="string">%%p</span> <span class="string">IN</span> <span class="string">(*)</span> <span class="string">do</span> <span class="string">rmdir</span> <span class="string">&quot;%%p&quot;</span> <span class="string">/s</span> <span class="string">/q</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">SETLOCAL</span> <span class="string">EnableDelayedExpansion</span> <span class="string">&amp;</span> <span class="string">robocopy</span> <span class="string">&quot;%APPVEYOR_BUILD_FOLDER%\public&quot;</span> <span class="string">&quot;%TEMP%\static-site&quot;</span> <span class="string">/e</span> <span class="string">&amp;</span> <span class="string">IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">1</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">3</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(exit</span> <span class="number">1</span><span class="string">))</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">add</span> <span class="string">-A</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">commit</span> <span class="string">-m</span> <span class="string">&quot;Update Static Site&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">push</span> <span class="string">origin</span> <span class="string">%TARGET_BRANCH%</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">appveyor</span> <span class="string">AddMessage</span> <span class="string">&quot;Static Site Updated&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">clone_depth:</span> <span class="number">5</span>  </span><br><span class="line"></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="attr">access_token:</span></span><br><span class="line">    <span class="attr">secure:</span> <span class="comment">#### 从#开始删除，将加密的Token粘贴在此处 ####    </span></span><br><span class="line">    </span><br><span class="line"><span class="attr">install:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ps:</span> <span class="string">Install-Product</span> <span class="string">node</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">node</span> <span class="string">--version</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">--version</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span> </span><br><span class="line">    <span class="comment">####### 根据自己需求，下载的hexo 插件 ##############</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-theme-next</span>   <span class="comment"># 下载最新版本的next主题</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-abbrlink</span> <span class="string">--save</span> <span class="comment"># 编写永久链接</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-searchdb</span> <span class="string">--save</span>  <span class="comment">#本地搜索</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-neat</span> <span class="string">--save</span>  <span class="comment"># 静态压缩</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-filter-nofollow</span> <span class="string">--save</span>    <span class="comment"># 防跟随</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">uninstall</span> <span class="string">hexo-asset-image</span> <span class="string">--save</span>     <span class="comment">#在高版本的hexo加载图片出现问题</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-renderer-marked</span> <span class="string">--save</span>  <span class="comment"># 加载图片</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-word-counter</span>   <span class="comment">#统计文章字数</span></span><br><span class="line">    <span class="comment">################################################</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">ls</span> <span class="string">--depth</span> <span class="number">0</span>  <span class="comment">#检查安装的插件</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">build_script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">artifacts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">public</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">on_success:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">credential.helper</span> <span class="string">store</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ps:</span> <span class="string">Add-Content</span> <span class="string">&quot;$env:USERPROFILE\.git-credentials&quot;</span> <span class="string">&quot;https://$($env:access_token):x-oauth-basic@github.com`n&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;%GIT_USER_EMAIL%&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;%GIT_USER_NAME%&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">clone</span> <span class="string">--depth</span> <span class="number">5</span> <span class="string">-q</span> <span class="string">--branch=%TARGET_BRANCH%</span> <span class="string">%STATIC_SITE_REPO%</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cd</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">del</span> <span class="string">*</span> <span class="string">/f</span> <span class="string">/q</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">for</span> <span class="string">/d</span> <span class="string">%%p</span> <span class="string">IN</span> <span class="string">(*)</span> <span class="string">do</span> <span class="string">rmdir</span> <span class="string">&quot;%%p&quot;</span> <span class="string">/s</span> <span class="string">/q</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">SETLOCAL</span> <span class="string">EnableDelayedExpansion</span> <span class="string">&amp;</span> <span class="string">robocopy</span> <span class="string">&quot;%APPVEYOR_BUILD_FOLDER%\public&quot;</span> <span class="string">&quot;%TEMP%\static-site&quot;</span> <span class="string">/e</span> <span class="string">&amp;</span> <span class="string">IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">1</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">3</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(exit</span> <span class="number">1</span><span class="string">))</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">add</span> <span class="string">-A</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">commit</span> <span class="string">-m</span> <span class="string">&quot;Update Static Site&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">push</span> <span class="string">origin</span> <span class="string">%TARGET_BRANCH%</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">appveyor</span> <span class="string">AddMessage</span> <span class="string">&quot;Static Site Updated&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="打开AppVeyor新建的项目界面，配置environment"><a href="#打开AppVeyor新建的项目界面，配置environment" class="headerlink" title="打开AppVeyor新建的项目界面，配置environment"></a>打开AppVeyor新建的项目界面，配置<code>environment</code></h4><p><img src="CI_12.jpg"></p>
-<h4 id="将文件上传到github"><a href="#将文件上传到github" class="headerlink" title="将文件上传到github"></a>将文件上传到github</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add -A   <span class="comment"># 暂存提交，和git add . 的区别是可以删除文件</span></span><br><span class="line">git commit -m <span class="string">&quot;first&quot;</span></span><br><span class="line">git push origin main   <span class="comment">#默认是master</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置AppVeyor"><a href="#配置AppVeyor" class="headerlink" title="配置AppVeyor"></a>配置AppVeyor</h3><p>打开AppVeyor新建的项目界面，配置<code>environment</code></p>
+<p><img src="CI_12.jpg"></p>
+<h3 id="上传源文件"><a href="#上传源文件" class="headerlink" title="上传源文件"></a>上传源文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add -A   <span class="comment"># 暂存提交，和git add . 的区别是可以删除文件</span></span><br><span class="line">git commit -m <span class="string">&quot;first&quot;</span></span><br><span class="line">git push origin main   <span class="comment">#默认是master</span></span><br></pre></td></tr></table></figure>
 
 <p>此时已经基本完成所有操作，可以在Appveyor网站的<code>current build</code>观察到当前的构件情况</p>
 <p><img src="CI_13.jpg"></p>
@@ -480,8 +469,12 @@
 <p><img src="CI_15.jpg"></p>
 <p>原来是因为上传主题，而主题里面有一个.git的隐藏文件，上传时会把这个主题当成一个独立的模块，导致页面生成失败。</p>
 <p>解决方案是：</p>
-<p>1.删除文件夹里面的.git文件夹</p>
-<p>2.执行下面的代码</p>
+<ol>
+<li><p>删除文件夹里面的.git文件夹</p>
+</li>
+<li><p>执行下面的代码</p>
+</li>
+</ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git rm -r --cached [文件夹名]</span><br><span class="line">git add [文件夹名]</span><br><span class="line">git commit -m <span class="string">&quot;No git File&quot;</span></span><br><span class="line">git push origin [branch_name] </span><br></pre></td></tr></table></figure>
 
 
@@ -538,7 +531,7 @@
 <p>选择SSH and GPG keys</p>
 <p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#109;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#105;&#x74;&#64;&#x67;&#105;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#64;&#x67;&#105;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
