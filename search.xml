@@ -18,7 +18,8 @@
   <entry>
     <title>MySQL:分支结构</title>
     <url>/posts/6577bcb2/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中分支结构的基本使用。</p>
+<span id="more"></span>
 
 <h3 id="流程控制结构"><a href="#流程控制结构" class="headerlink" title="流程控制结构"></a>流程控制结构</h3><p>顺序结构:程序从上往下依次执行<br>分支结构:程序从两条或多条路径中选择一条去执行<br>循环结构:程序在满足一定条件的基础上，重复执行一段代码</p>
 <h3 id="1-分支结构"><a href="#1-分支结构" class="headerlink" title="1.分支结构"></a>1.分支结构</h3><h4 id="1-1-if-函数"><a href="#1-1-if-函数" class="headerlink" title="1.1 if 函数"></a>1.1 if 函数</h4><p>功能:实现简单的双分支语法:</p>
@@ -57,7 +58,8 @@
   <entry>
     <title>MySQL:存储过程和函数</title>
     <url>/posts/60511917/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中存储过程和函数的基本使用。</p>
+<span id="more"></span>
 
 <p>存储过程和函数:类似于java中的方法好处:<br>1、提高代码的重用性<br>2、简化操作</p>
 <h2 id="1-存储过程"><a href="#1-存储过程" class="headerlink" title="1.存储过程"></a>1.存储过程</h2><p>含义:一组预先编译好的sql语句的集合，理解成批处理语句<br>1、提高代码的重用性<br>2、简化操作<br>3、减少了编译次数并且减少了和数据库服务器的连接次数，提高了效率</p>
@@ -99,10 +101,10 @@
   <entry>
     <title>MySQL:变量定义</title>
     <url>/posts/a82b342a/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中变量的定义和使用。</p>
+<span id="more"></span>
 
-
-<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><pre><code>系统变量:
+<pre><code>系统变量:
     全局变量
         作用域:服务器每次启动将为所有的全局变量赋初始值，针对于所有的会话（连接）有效，但不能跨重启；如果要保证重启不变，则需要修改配置文件；
     会话变量
@@ -153,7 +155,8 @@
   <entry>
     <title>MySQL:view(视图)</title>
     <url>/posts/e03471c6/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中视图的基本使用。</p>
+<span id="more"></span>
 
 <h3 id="1-含义"><a href="#1-含义" class="headerlink" title="1.含义"></a>1.含义</h3><ul>
 <li>mysql 15.1版本出现</li>
@@ -221,7 +224,8 @@
   <entry>
     <title>MySQL:TCL（事务控制语言）</title>
     <url>/posts/3112a4fe/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中事务的基本使用。</p>
+<span id="more"></span>
 
 <h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h3><p>​    事务：<br>​        事务由单独单元的一个或多个sQL语句组成，在这个单元中﹐每个MySQL语句是相互侬赖的。而整个单独单元作为一个不可分割的整体﹐如果单元中某条SQL语句一旦执行失败或产生错误，整个单元将会回滚。所有受到影响的数据将返回到事物开始以前的状态;如果单元中的所有sQL语句均执行成功﹐则事物被顺利执行。<br>​    存储引擎：<br>​        1、概念:在mysql中的数据用各种不同的技术存储在文件（或内存）中。<br>​        2、通过show engines;来查看mysql支持的存储引擎。<br>​        3、在mysql中用的最多的存储引擎有: innodb,myisam,memory等。<br>​            其中innodb支持事务，而myisam、memory等不支持事务       </p>
 <h3 id="2-ACID属性"><a href="#2-ACID属性" class="headerlink" title="2.ACID属性"></a>2.ACID属性</h3><p>​    1.原子性（Atomicity)<br>​        原子性是指事务是一个个可刀P一lr十都发生，要么都不发生。<br>​    2.一致性（Consistency)<br>​        事务必须使数据库从一个一致性状态变换到另外一个一致性状态<br>​    3.隔离性(Isolation)<br>​        事务的隔离性是指一个事务的执行不能被其他事务干扰，即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相千扰。<br>​    4.持久性（Durability)<br>​        持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来的其他操作和数据库故障不应该对其有任何影响</p>
@@ -419,7 +423,8 @@ set global transaction isolation level read committed;
   <entry>
     <title>MySQL:DDL（数据定义语言）</title>
     <url>/posts/9938db0d/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍对MySQL中库和表的属性的操作。</p>
+<span id="more"></span>
 
 <h3 id="1-库和表的管理"><a href="#1-库和表的管理" class="headerlink" title="1.库和表的管理"></a>1.库和表的管理</h3><p>​    一、库的管理<br>​        创建、修改、删除<br>​    二、表的管理<br>​        创建、修改、删除<br>​        创建:create<br>​        修改:alter<br>​        删除:drop</p>
 <h4 id="1-1-库管理"><a href="#1-1-库管理" class="headerlink" title="1.1.库管理"></a>1.1.库管理</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 创建一个库books</span></span><br><span class="line"><span class="keyword">CREATE</span> DATABASE books;</span><br><span class="line"><span class="keyword">SHOW</span> DATABASES;</span><br><span class="line"><span class="comment">-- 增加容错性</span></span><br><span class="line"><span class="keyword">CREATE</span> DATABASE IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> books ;</span><br><span class="line"><span class="comment">-- 暂时不能修改库名，容易丢失数据，不够安全</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 更改字符集</span></span><br><span class="line"><span class="keyword">ALTER</span> DATABASE books <span class="type">CHARACTER</span> <span class="keyword">SET</span> gbk;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除库</span></span><br><span class="line"><span class="keyword">DROP</span> DATABASE IF <span class="keyword">EXISTS</span> books;</span><br></pre></td></tr></table></figure>
@@ -544,9 +549,10 @@ set global transaction isolation level read committed;
   <entry>
     <title>MySQL:DML（数据操作语言）</title>
     <url>/posts/9e77971c/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中对数据的增删改操作。</p>
+<span id="more"></span>DML语言
 
-<h3 id="DML语言"><a href="#DML语言" class="headerlink" title="DML语言"></a>DML语言</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">数据操作语言:</span><br><span class="line">    插入: insert</span><br><span class="line">    修改: update</span><br><span class="line">    删除: delete</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">数据操作语言:</span><br><span class="line">    插入: insert</span><br><span class="line">    修改: update</span><br><span class="line">    删除: delete</span><br></pre></td></tr></table></figure>
 <h3 id="1-插入语句"><a href="#1-插入语句" class="headerlink" title="1. 插入语句"></a>1. 插入语句</h3><h4 id="1-1-语法"><a href="#1-1-语法" class="headerlink" title="1. 1 语法"></a>1. 1 语法</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 语法一:</span><br><span class="line">insert into 表名(列名，... ) values (值1,...);</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 语法二:</span><br><span class="line">insert into 表名 set 列名 = 值,列名 = 值,....;</span><br></pre></td></tr></table></figure>
@@ -590,7 +596,8 @@ set global transaction isolation level read committed;
   <entry>
     <title>MySQL:联合查询</title>
     <url>/posts/2080b578/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中联合查询的基本使用。</p>
+<span id="more"></span>
 
 <h3 id="1-语法"><a href="#1-语法" class="headerlink" title="1. 语法"></a>1. 语法</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">union 联合合并：将多条查询语句的结果合并成一个结果</span><br><span class="line">    语法：</span><br><span class="line">        查询语句一</span><br><span class="line">        union</span><br><span class="line">        查询语句二</span><br><span class="line">        union</span><br><span class="line">        查询语句三</span><br><span class="line">        ……</span><br><span class="line">    应用场景:</span><br><span class="line">        要查询的结果来自于多个表，且多个表没有直接的连接关系，但查询的信息一致时</span><br><span class="line">    特点:</span><br><span class="line">        1、要求多条查询语句的查询列数是一致的!</span><br><span class="line">        2、要求多条查询语句的查询的每一列的类型和顺序最好一致</span><br><span class="line">        3、union关键字默认去重，如果使用union all 可以包含重复项</span><br></pre></td></tr></table></figure>
 
@@ -609,7 +616,8 @@ set global transaction isolation level read committed;
   <entry>
     <title>MySQL:分页查询</title>
     <url>/posts/80debfa3/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中分页查询的基本使用。</p>
+<span id="more"></span>
 <p>应用场景:当要显示的数据，一页显示不全，需要分页提交sql请求</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">语法:</span><br><span class="line">     select 查询列表</span><br><span class="line">     from 表</span><br><span class="line">     【[JOIN TYPE] join 表2</span><br><span class="line">     on 连接条件</span><br><span class="line">     WHERE 筛选条件 </span><br><span class="line">     group by 分组字段 </span><br><span class="line">     having 分组后的筛选</span><br><span class="line">     order by 排序的字段】</span><br><span class="line">     limit offset, size;</span><br><span class="line">    /***offset 要显示条目的起始索引(起始索引从0开始)***/</span><br><span class="line">特点:</span><br><span class="line">     limit 语句放在查询语句的最后</span><br><span class="line">公式:</span><br><span class="line">     select 查询列表</span><br><span class="line">     from 表</span><br><span class="line">     limit (page-1)*size,size;</span><br><span class="line">     /***要显示的页数page，每页的条目数size***/</span><br></pre></td></tr></table></figure>
 
@@ -645,7 +653,8 @@ set global transaction isolation level read committed;
   <entry>
     <title>MySQL:子查询</title>
     <url>/posts/e46b90c0/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中子查询的基本使用。</p>
+<span id="more"></span>
 
 <pre><code>含义: 
     出现在其他语句中的select语句，称为子查询或内查询 
@@ -721,7 +730,8 @@ exists(完整的查询语句)
   <entry>
     <title>MySQL:连接查询</title>
     <url>/posts/b368022b/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中连接查询的基本使用。</p>
+<span id="more"></span>
 
 <p>连接查询又称多表查询，当查询的字段来自于多个表时，就会用到连接查询。</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">笛卡尔乘积现象:表<span class="number">1</span>有m行，表<span class="number">2</span>有n行，结果<span class="operator">=</span>m<span class="operator">*</span>n行</span><br><span class="line">发生原因:没有有效的连接条件</span><br><span class="line">如何避免:添加有效的连按条件</span><br><span class="line"></span><br><span class="line">MySQL分类:</span><br><span class="line">    按年代分类:</span><br><span class="line">        sq192标准：仅仅支持内连接</span><br><span class="line">        sql99标准 【推荐】 支持内连接<span class="operator">+</span>外连接（左外连接和右外连接）<span class="operator">+</span>交叉连接</span><br><span class="line">    按功能分类:</span><br><span class="line">        内连接:</span><br><span class="line">            等值连接</span><br><span class="line">            非等值连接</span><br><span class="line">            自连接</span><br><span class="line">        外连接:</span><br><span class="line">            左外连接</span><br><span class="line">            右外连接</span><br><span class="line">            全外连接</span><br><span class="line">        交叉连接</span><br></pre></td></tr></table></figure>
@@ -786,7 +796,8 @@ exists(完整的查询语句)
   <entry>
     <title>MySQL:分组查询</title>
     <url>/posts/ab73e734/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中分组查询的基本使用。</p>
+<span id="more"></span>
 
 <h3 id="1-语法"><a href="#1-语法" class="headerlink" title="1.语法"></a>1.语法</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> 分组函数 【,列(要求出现在 <span class="keyword">group</span> <span class="keyword">by</span>的后面)】</span><br><span class="line"><span class="keyword">from</span> 表</span><br><span class="line">【 <span class="keyword">where</span> 筛选条件 】</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> 分组列表</span><br><span class="line">【 <span class="keyword">order</span> <span class="keyword">by</span>子句 】</span><br></pre></td></tr></table></figure>
 
@@ -837,7 +848,10 @@ exists(完整的查询语句)
   <entry>
     <title>MySQL:常见函数</title>
     <url>/posts/cc918917/</url>
-    <content><![CDATA[<p>  概念:类似于java的方法，将一组逻辑语句封装在方法体中，对外暴露方法名  </p>
+    <content><![CDATA[<p>  学习笔记：介绍MySQL中常见函数的基本使用。</p>
+<span id="more"></span>
+
+<p>概念:类似于java的方法，将一组逻辑语句封装在方法体中，对外暴露方法名  </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">好处:</span><br><span class="line">​        1、隐藏了实现细节</span><br><span class="line">​        2、提高代码的重用性  </span><br><span class="line">​    调用:select 函数名(实参列表) 【from 表】;  </span><br><span class="line">​    特点:     </span><br><span class="line">​        ①叫什么(函数名)   </span><br><span class="line">​        ②千什么(函数功能)  </span><br><span class="line">​    分类:      </span><br><span class="line">​        1、单行函数      </span><br><span class="line">​            字符函数</span><br><span class="line">​            数学函数</span><br><span class="line">​            日期函数</span><br><span class="line">​            其他函数【补充】</span><br><span class="line">​            流程控制函数【补充】      </span><br><span class="line">​        2、分组函数      </span><br><span class="line">​            功能:做统计使用，又称为统计函数、聚合函数、组函数     </span><br></pre></td></tr></table></figure>
 
 <h3 id="1-字符函数"><a href="#1-字符函数" class="headerlink" title="1. 字符函数"></a>1. 字符函数</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- length获取参数值的字节个数</span></span><br><span class="line"><span class="keyword">SELECT</span> LENGTH( <span class="string">&#x27;john&#x27;</span> ) ; <span class="comment">-- 4</span></span><br><span class="line"><span class="keyword">SELECT</span> LENGTH(<span class="string">&#x27;张三丰&#x27;</span> ) ;<span class="comment">-- 9</span></span><br><span class="line"><span class="keyword">SHOW</span> VARIABLES <span class="keyword">LIKE</span> <span class="string">&#x27;%char%&#x27;</span> ;<span class="comment">-- 查看字符集（utf8汉字占3个字节，GBK汉字占2个字节)</span></span><br></pre></td></tr></table></figure>
@@ -953,7 +967,8 @@ exists(完整的查询语句)
   <entry>
     <title>MySQL:排序</title>
     <url>/posts/db4c4c/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中排序操作。</p>
+<span id="more"></span>
 
 <h3 id="1语法格式"><a href="#1语法格式" class="headerlink" title="1语法格式"></a>1语法格式</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT 查询列表             	③</span><br><span class="line">FROM 表                     	①</span><br><span class="line">【 WHERE 语句 】                ②</span><br><span class="line">ORDER BY 排序列表 【 asc|desc 】 ④</span><br></pre></td></tr></table></figure>
 
@@ -976,7 +991,8 @@ exists(完整的查询语句)
   <entry>
     <title>MySQL:条件查询</title>
     <url>/posts/a8bccd5a/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中条件查询的基本使用。</p>
+<span id="more"></span>
 
 <h3 id="1-语法"><a href="#1-语法" class="headerlink" title="1 .语法"></a>1 .语法</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select</span><br><span class="line">	查询列表</span><br><span class="line">from</span><br><span class="line">	表名</span><br><span class="line">where</span><br><span class="line">	筛选条件;		</span><br></pre></td></tr></table></figure>
 
@@ -1016,7 +1032,8 @@ exists(完整的查询语句)
   <entry>
     <title>MySQL:基础查询</title>
     <url>/posts/47455d3a/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p>学习笔记：介绍MySQL中基础查询语法。</p>
+<span id="more"></span>
 
 <p><strong>语法:</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select  查询列表 </span><br><span class="line">from 表名;</span><br></pre></td></tr></table></figure>
@@ -1671,7 +1688,7 @@ exists(完整的查询语句)
 <p>选择SSH and GPG keys</p>
 <p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#111;&#109;">&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#111;&#109;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
