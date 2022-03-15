@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>判断一个链表是否是回文链表</title>
+    <url>/posts/4b83bc00/</url>
+    <content><![CDATA[<p>回文链表指的是从中间开始，两边的结点值成镜像排列。</p>
+<span id="more"></span>
+
+<h3 id="1-思路"><a href="#1-思路" class="headerlink" title="1.思路"></a>1.思路</h3><p><strong>解决回文链表的思路：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">声明两个指针，一个从头结点顺序遍历，一个从尾结点逆序遍历。</span><br><span class="line"></span><br><span class="line">遍历结束条件：遍历到中间结点</span><br><span class="line"></span><br><span class="line">遍历过程：并比较结点值是否相同，不同则返回false,相同则继续遍历，直到满足条件跳出，返回true。</span><br></pre></td></tr></table></figure>
+
+<p><strong>难点：</strong></p>
+<ol>
+<li>单链表无法从后向前遍历</li>
+<li>不知道链表长度，一次遍历找不到中间结点</li>
+</ol>
+<p><strong>难点解析：</strong></p>
+<p><strong>如何一次遍历找到中间结点？</strong></p>
+<p>通过快慢指针，慢指针每次走一个结点，快指针每次走两个结点。当快指针走到最后一个结点时，慢指针的下一个结点即为中间结点之后的结点。</p>
+<p><strong>如何从后向前遍历</strong>?</p>
+<p>通过翻转链表将后半段链表翻转，此时尾结点变成头结点就可以实现逆序遍历了。</p>
+<p><strong>特殊点：</strong></p>
+<ol>
+<li>翻转之后，slow指针所在的结点指向的下一个结点仍然是下一个结点，,因此要变成两段链表要令<code>slow.next = null</code>;</li>
+<li>由于使用了快慢指针，则链表必须有一个结点。</li>
+</ol>
+<h3 id="2-实现程序"><a href="#2-实现程序" class="headerlink" title="2.实现程序"></a>2.实现程序</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPail</span> <span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 链表必须有值</span></span><br><span class="line">    <span class="keyword">if</span>(head==<span class="keyword">null</span>||head.next==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//声明快慢指针</span></span><br><span class="line">    ListNode slow = head;</span><br><span class="line">    ListNode fast = head.next;</span><br><span class="line">    <span class="comment">//遍历遍历，找到中间结点位置</span></span><br><span class="line">    <span class="keyword">while</span>(fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        <span class="keyword">if</span>(fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            fast = fast.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//翻转后半段链表，并将头结点赋于快指针</span></span><br><span class="line">    fast = reverse(slow.next);</span><br><span class="line">    <span class="comment">//把链表变成两段</span></span><br><span class="line">	slow.next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">//将原链表头结点赋于慢指针</span></span><br><span class="line">	slow = head;</span><br><span class="line">	<span class="comment">//遍历两段链表，并逐个结点比较</span></span><br><span class="line">	<span class="keyword">while</span>(slow !=<span class="keyword">null</span>&amp;&amp;fast!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    	<span class="keyword">if</span>(slow.val!=fast.val)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">    	fast = fast.next;</span><br><span class="line">    	slow = slow.next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-翻转链表"><a href="#3-翻转链表" class="headerlink" title="3.翻转链表"></a>3.翻转链表</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverse</span><span class="params">(ListNode head)</span></span>&#123;</span><br><span class="line">    <span class="comment">//定义尾结点</span></span><br><span class="line">    ListNode tail = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span>(head!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="comment">//将要丢掉的链表结点赋值给temp</span></span><br><span class="line">        ListNode temp = head;</span><br><span class="line">        <span class="comment">//链表结点后移</span></span><br><span class="line">        head = head.next;</span><br><span class="line">        <span class="comment">//将要丢掉的链表的下一结点赋值给尾结点</span></span><br><span class="line">        temp.next = tail;</span><br><span class="line">        <span class="comment">//尾结点前移</span></span><br><span class="line">        tail = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tail;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>反转链表</tag>
+        <tag>双指针</tag>
+        <tag>快慢指针</tag>
+        <tag>链表遍历</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法：匈牙利算法</title>
     <url>/posts/ecc65d01/</url>
     <content><![CDATA[<p>匈牙利算法思想：<strong>先到先得，能让则让</strong>。</p>
@@ -1688,7 +1723,7 @@ exists(完整的查询语句)
 <p>选择SSH and GPG keys</p>
 <p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#109;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
