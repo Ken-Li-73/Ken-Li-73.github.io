@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>背包问题：多重背包</title>
+    <url>/posts/7aaec587/</url>
+    <content><![CDATA[<p>有<code>N</code>种物品和一个容量为<code>V</code>的背包，<strong>每种物品最多选s_i件可用</strong>。</p>
+<span id="more"></span>
+
+<h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h3><p>在完全背包的基础上对每种物品的数量加以限制，可以转换为01背包问题</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[i] 表示背包总容量是i的情况下，最大价值是多少</span><br><span class="line">v[i] 表示第i个物品的容量是多少</span><br><span class="line">w[i] 表示第i个物品的价值是多少</span><br><span class="line">s[i] 表示第i个物品有多少个</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=m;j&gt;=v[i];j--)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=s[i]&amp;&amp;k*v[i]&lt;=j;k++)&#123;  <span class="comment">//每种选择k个</span></span><br><span class="line">			f[j] = Math.max(f[j],f[j-k*v[i]]+k*w[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-优化"><a href="#2-优化" class="headerlink" title="2.优化"></a>2.优化</h3><h4 id="2-1二进制优化"><a href="#2-1二进制优化" class="headerlink" title="2.1二进制优化"></a>2.1二进制优化</h4><p>前提条件：0…n之间的数，可以用这几个数组合出来：1，2，4，2^k，n-2^k</p>
+<p>如0~10可以用 1，2，4，3组合出来</p>
+<p>将每种物品的数量二进制化</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *   class Goods&#123;</span></span><br><span class="line"><span class="comment"> *       public int v;</span></span><br><span class="line"><span class="comment"> *       public int w;</span></span><br><span class="line"><span class="comment"> *       public Goods(int v, int w)&#123;</span></span><br><span class="line"><span class="comment"> *           this.v = v;</span></span><br><span class="line"><span class="comment"> *           this.w = w;</span></span><br><span class="line"><span class="comment"> *       &#125;</span></span><br><span class="line"><span class="comment"> *    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">int</span> n = scan.nextInt();</span><br><span class="line"><span class="keyword">int</span> m = scan.nextInt();</span><br><span class="line">ArrayList&lt;Goods&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    <span class="keyword">int</span> v = scan.nextInt();</span><br><span class="line">    <span class="keyword">int</span> w = scan.nextInt();</span><br><span class="line">    <span class="keyword">int</span> s = scan.nextInt();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>;s[i]-k&gt;=<span class="number">0</span>;k *= <span class="number">2</span>)&#123;</span><br><span class="line">        s -= k;</span><br><span class="line">        list.add(<span class="keyword">new</span> Goods(k*v,k*w));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(s&gt;<span class="number">0</span>) </span><br><span class="line">        list.add(<span class="keyword">new</span> Goods(s*v,s*w));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>转化为01背包问题</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(Goods g: list)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=m;j&gt;=g.v;j--)&#123;</span><br><span class="line">        f[j] = Math.max(f[j],f[j-g.v]+g.w);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假设第i种物品有s个，则创建的物品有k+1个种类，分别是1个，2个，4个，…,2^k 个和s-2^k个物品的组合</p>
+<h4 id="2-2二进制优化细节解释"><a href="#2-2二进制优化细节解释" class="headerlink" title="2.2二进制优化细节解释"></a>2.2二进制优化细节解释</h4><p>对于1个第i种物品组合，内循环至f[j]时，数组内的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[0] : 表示考虑第i-1个物品，容量为0时的价值。</span><br><span class="line">f[1] : 表示考虑第i-1个物品，容量为0时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-v[i]] : 表示考虑第i-1个物品，容量为j-v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j] : 表示考虑第i-1个物品，容量为j时的价值。</span><br><span class="line">...</span><br><span class="line">f[m] : 表示考虑第i个物品，容量为m时的价值。</span><br><span class="line">此时f[j]考虑是否添加1个第i种物品</span><br><span class="line">此时包含：0，1</span><br></pre></td></tr></table></figure>
+
+<p>对于2个第i种物品组合，内循环至f[j]时，数组内的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[0] : 表示考虑第i-1个物品，容量为0时的价值。</span><br><span class="line">f[1] : 表示考虑第i-1个物品，容量为0时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-2*v[i]] : 表示考虑第i-1个物品，容量为j-2*v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-v[i]] : 表示考虑第i个物品是否添加1个，容量为j-v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j] : 表示考虑第i个物品是否添加1个，容量为j时的价值。</span><br><span class="line">...</span><br><span class="line">f[m] : 表示考虑第i个物品是否添加2个，容量为m时的价值。</span><br><span class="line"></span><br><span class="line">此时f[j]考虑在是否添加1个第i种物品的基础上，添加添加2个第i种物品的基础</span><br><span class="line">此时包含：0+2，1+2</span><br></pre></td></tr></table></figure>
+
+<p>对于2^k个第i种物品组合，内循环至f[j]时，数组内的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[0] : 表示考虑第i-1个物品，容量为0时的价值。</span><br><span class="line">f[1] : 表示考虑第i-1个物品，容量为0时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-2^k*v[i]] : 表示考虑第i-1个物品，容量为j-2^k*v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-2^(k-1)*v[i]] : 表示考虑第i-1个物品是否添加2^(k-1)个，容量为j-2^(k-1)*v[i]时的价值。//第k-1次循环到里结束</span><br><span class="line">...</span><br><span class="line">f[j-2*v[i]] : 表示考虑第i个物品是否添加2^(k-1)个，容量为j-2*v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-v[i]] : 表示考虑第i个物品是否添加2^(k-1)个，容量为j-v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j] : 表示考虑第i个物品是否添加是否添加2^(k-1)个，容量为j时的价值。</span><br><span class="line">...</span><br><span class="line">f[m] : 表示考虑第i个物品是否添加是否添加2^k个，容量为m时的价值。</span><br><span class="line"></span><br><span class="line">此时f[j]考虑在是否添加1个第i种物品的基础上，添加添加2个第i种物品的基础</span><br><span class="line">此时包含：0+2^k,1+2^k,2+2^k,1+2+2^k,....，1+2+4+...+2^k</span><br></pre></td></tr></table></figure>
+
+<p>因此可以全部包括数量的种类</p>
+]]></content>
+  </entry>
+  <entry>
     <title>背包问题：完全背包</title>
     <url>/posts/8b258efe/</url>
     <content><![CDATA[<p>有<code>N</code>种物品和一个容量为<code>V</code>的背包，<strong>每种物品都有无限件可用</strong>。</p>
@@ -1826,7 +1857,7 @@ exists(完整的查询语句)
 <p>选择SSH and GPG keys</p>
 <p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#109;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
