@@ -1,6 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>图系列：拓扑排序</title>
+    <url>/posts/46c000df/</url>
+    <content><![CDATA[<p>拓扑排序是一种对<strong>具有某种依赖关系</strong>的元素进行排序的过程。</p>
+<span id="more"></span>
+
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>拓扑排序具有以下特点：</p>
+<ol>
+<li><strong>针对有向图</strong>（入度和出度）</li>
+<li><strong>排序注重的是过程</strong>（比如要做什么事，必须要完成什么事）</li>
+<li><strong>排序结果不一定唯一</strong>（取决于每次更新节点的个数是否大于1）</li>
+</ol>
+<p>排序规则：</p>
+<ol>
+<li>选择入度为0的结点的排序；</li>
+<li>存储当前节点；</li>
+<li>删除当前节点到其他节点的所有出度；</li>
+<li>重复1、2步操作；</li>
+</ol>
+<p>针对排序结果存在以下特点：</p>
+<ol>
+<li><strong>每次选取的入度为0的节点不唯一，则结果不唯一；</strong></li>
+<li><strong>最后获取的节点数和图的节点不相等，则图中存在环；</strong></li>
+</ol>
+<h3 id="代码模板"><a href="#代码模板" class="headerlink" title="代码模板"></a>代码模板</h3><h4 id="定义存储结构"><a href="#定义存储结构" class="headerlink" title="定义存储结构"></a>定义存储结构</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1.定义一个存储图节点出度关系的邻接表</span></span><br><span class="line">Map&lt;K,Set&lt;T&gt;&gt; graph = <span class="keyword">new</span> HashMap&lt;&gt;();<span class="comment">//K:指的是图节点，Set&lt;T&gt;:指的是当前节点所有的出度节点</span></span><br><span class="line"><span class="comment">//2.定义一个存储图节点的入度数目的映射表</span></span><br><span class="line">Map&lt;K,Integer&gt; inDegree = <span class="keyword">new</span> HashMap&lt;&gt;();<span class="comment">//K:指的是图节点，Integer:指的是当前节点所有的入度数量</span></span><br><span class="line"><span class="comment">//3.定义一个用于接受节点的容器</span></span><br><span class="line">List&lt;T&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<h4 id="图的初始化"><a href="#图的初始化" class="headerlink" title="图的初始化"></a>图的初始化</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//不同题型具有不用的依赖关系，则我直接从两个结点存在依赖关系开始说明</span></span><br><span class="line"><span class="comment">//1.创建当前节点的邻接表</span></span><br><span class="line">graph.computeIfAbsent(a, key-&gt; <span class="keyword">new</span> HashSet&lt;&gt;());<span class="comment">//如果a存在则不新建set,不存在，则新建一个set</span></span><br><span class="line">graph.computeIfAbsent(b, key-&gt; <span class="keyword">new</span> HashSet&lt;&gt;());<span class="comment">//如果b存在则不新建set,不存在，则新建一个set</span></span><br><span class="line"><span class="comment">//2.创建当前节点的入度映射表</span></span><br><span class="line">inDegree.putIfAbsent(a, <span class="number">0</span>);<span class="comment">//如果a存在,则对应的值不变,不存在，则对应的值赋为0</span></span><br><span class="line">inDegree.putIfAbsent(b, <span class="number">0</span>);<span class="comment">//如果b存在,则对应的值不变,不存在，则对应的值赋为0</span></span><br><span class="line"><span class="comment">//***********************************************************</span></span><br><span class="line"><span class="comment">//第1、2 步不一定和第3步在同一个循环里面创建，但一定在其之前</span></span><br><span class="line"><span class="comment">//第1、2 步和图的节点数量有关，应随着图的节点遍历而创建</span></span><br><span class="line"><span class="comment">//第3步和图的边有关系，应随着依赖关系的遍历而创建</span></span><br><span class="line"><span class="comment">//***********************************************************</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//单个结点的邻接表和入度映射表的创建</span></span><br><span class="line">T a ;</span><br><span class="line">graph.computeIfAbsent(a, key-&gt; <span class="keyword">new</span> HashSet&lt;&gt;());<span class="comment">//如果a存在则不新建set,不存在，则新建一个set</span></span><br><span class="line">inDegree.putIfAbsent(a, <span class="number">0</span>);<span class="comment">//如果a存在,则对应的值不变,不存在，则对应的值赋为0</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获得具有依赖关系的两个节点</span></span><br><span class="line"><span class="comment">//b依赖a,即要完成b,必须完成a</span></span><br><span class="line">T a ;</span><br><span class="line">T b ;</span><br><span class="line"><span class="comment">//3.判断当前节点a是否含有出度为b的节点</span></span><br><span class="line"><span class="keyword">if</span>(!graph.get(a).contains(b))&#123;</span><br><span class="line">    <span class="comment">//不含有,则节点a添加出度为b的节点</span></span><br><span class="line">    graph.get(a).add(b);</span><br><span class="line">    <span class="comment">//不含有,则节点b的入度增加1</span></span><br><span class="line">    inDegree.put(b, inDegree.get(b)+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="图的遍历及排序"><a href="#图的遍历及排序" class="headerlink" title="图的遍历及排序"></a>图的遍历及排序</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//遍历采用广度优先遍历：因此需要一个队列</span></span><br><span class="line">Queue &lt;T&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"><span class="comment">//首先获取入度为0的节点</span></span><br><span class="line"><span class="keyword">for</span>(T key : inDegree.keySet())&#123;</span><br><span class="line">    <span class="comment">//容器中节点数量不够的原因位置：入度不为0的节点，不能进队列</span></span><br><span class="line">    <span class="comment">//顺序不唯一造成原因位置：入度为0的节点不一定唯一：节点可能压入队列中多个</span></span><br><span class="line">    <span class="keyword">if</span>(inDegree.get(key) == <span class="number">0</span>)&#123;</span><br><span class="line">        queue.offer(key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//图的广度优先</span></span><br><span class="line"><span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">    T element = queue.poll(); <span class="comment">//1.弹出入度为0的节点</span></span><br><span class="line">    list.add(element);<span class="comment">//2.存储入度为0的节点到容器中</span></span><br><span class="line">    <span class="comment">//3.清除当前节点入度对邻接节点造成的影响</span></span><br><span class="line">    <span class="keyword">for</span>(T key : graph.get(element))&#123;</span><br><span class="line">        inDegree.put(key, inDegree.get(key)-<span class="number">1</span>);</span><br><span class="line">        <span class="comment">//4.加入新的入度为0的节点</span></span><br><span class="line">        <span class="comment">//容器中节点数量不够的原因位置：入度不为0的节点，不能进队列</span></span><br><span class="line">        <span class="comment">//顺序不唯一造成原因位置：入度为0的节点不一定唯一：节点可能压入队列中多个</span></span><br><span class="line">        <span class="keyword">if</span>(inDegree.get(key) == <span class="number">0</span>)&#123;</span><br><span class="line">            queue.offer(key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> result_count = list.size(); <span class="comment">//这是容器中的节点的数量</span></span><br><span class="line"><span class="keyword">int</span> graph_count = graph.size(); <span class="comment">//这是图中节点的数量</span></span><br><span class="line"><span class="keyword">if</span>(result_count&lt;graph_count)&#123;</span><br><span class="line">    <span class="comment">//说明图中一直存在入度不为0的节点，因此不能存储到队列中，并进一步压入容器</span></span><br><span class="line">    <span class="comment">//这说明图中有环</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//这说明图中无环，</span></span><br><span class="line">    <span class="comment">//但不代表这个容器中的节点压入顺序唯一</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>力扣：<a href="https://leetcode-cn.com/problems/QA2IGt">https://leetcode-cn.com/problems/QA2IGt</a></p>
+<p>现在总共有 numCourses 门课需要选，记为 0 到 numCourses-1。<br>给定一个数组 prerequisites ，它的每一个元素 prerequisites[i] 表示两门课程之间的先修顺序。<br>例如 prerequisites[i] = [ai, bi] 表示想要学习课程 ai ，需要先完成课程 bi 。<br>请根据给出的总课程数  numCourses 和表示先修顺序的 prerequisites 得出一个可行的修课序列。<br>可能会有多个正确的顺序，只要任意返回一种就可以了。如果不可能完成所有课程，返回一个空数组。</p>
+<h4 id="模板套用"><a href="#模板套用" class="headerlink" title="模板套用"></a>模板套用</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] findOrder(<span class="keyword">int</span> numCourses, <span class="keyword">int</span>[][] prerequisites) &#123;</span><br><span class="line">    <span class="comment">//*************1.定义存储结构**********</span></span><br><span class="line">    Map&lt;Integer,Set&lt;Integer&gt;&gt; graph = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    Map&lt;Integer,Integer&gt; inDegree = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="comment">//*************2.图的初始化**********</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;numCourses;i++)&#123;</span><br><span class="line">        <span class="comment">//1.创建当前节点的邻接表</span></span><br><span class="line">        graph.computeIfAbsent(i, key-&gt; <span class="keyword">new</span> HashSet&lt;&gt;());</span><br><span class="line">        <span class="comment">//2.创建当前节点的入度映射表</span></span><br><span class="line">        inDegree.putIfAbsent(i, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> [] dependence : prerequisites)&#123;</span><br><span class="line">        <span class="keyword">int</span> a = dependence[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> b = dependence[<span class="number">0</span>];</span><br><span class="line">        <span class="comment">//3.判断当前节点a是否含有出度为b的节点</span></span><br><span class="line">        <span class="keyword">if</span>(!graph.get(a).contains(b))&#123;</span><br><span class="line">            <span class="comment">//不含有,则节点a添加出度为b的节点</span></span><br><span class="line">            graph.get(a).add(b);</span><br><span class="line">            <span class="comment">//不含有,则节点b的入度增加1</span></span><br><span class="line">            inDegree.put(b, inDegree.get(b)+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//*************3.图的遍历及排序**********</span></span><br><span class="line">    Queue &lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="comment">//首先获取入度为0的节点</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> key : inDegree.keySet())&#123;</span><br><span class="line">        <span class="comment">//容器中节点数量不够的原因位置：入度不为0的节点，不能进队列</span></span><br><span class="line">        <span class="comment">//顺序不唯一造成原因位置：入度为0的节点不一定唯一：节点可能压入队列中多个</span></span><br><span class="line">        <span class="keyword">if</span>(inDegree.get(key) == <span class="number">0</span>)&#123;</span><br><span class="line">            queue.offer(key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">        <span class="keyword">int</span> element = queue.poll(); <span class="comment">//1.弹出入度为0的节点</span></span><br><span class="line">        list.add(element);<span class="comment">//2.存储入度为0的节点到容器中</span></span><br><span class="line">        <span class="comment">//3.清除当前节点入度对邻接节点造成的影响</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> key : graph.get(element))&#123;</span><br><span class="line">            inDegree.put(key, inDegree.get(key)-<span class="number">1</span>);</span><br><span class="line">            <span class="comment">//4.加入新的入度为0的节点</span></span><br><span class="line">            <span class="comment">//容器中节点数量不够的原因位置：入度不为0的节点，不能进队列</span></span><br><span class="line">            <span class="comment">//顺序不唯一造成原因位置：入度为0的节点不一定唯一：节点可能压入队列中多个</span></span><br><span class="line">            <span class="keyword">if</span>(inDegree.get(key) == <span class="number">0</span>)&#123;</span><br><span class="line">                queue.offer(key);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//*************4.结果分析**********</span></span><br><span class="line">    <span class="keyword">if</span>(list.size()&lt;graph.size())&#123;</span><br><span class="line">        <span class="comment">//图中有环,不能修完全部课程</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">0</span>];</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//这说明图中无环，</span></span><br><span class="line">        <span class="keyword">return</span> list.stream().mapToInt(i-&gt;i).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <tags>
+        <tag>图</tag>
+        <tag>拓扑排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字符串系列-KMP算法</title>
+    <url>/posts/56c3798a/</url>
+    <content><![CDATA[<p>KMP算法的是判断一个字符串是否是另一个字符串的子串：</p>
+<span id="more"></span>
+
+<p>KMP算法：之所以能够增加效率，是利用模式串<code>s</code>中任意两个不同的子串具有相同的后缀，如果没有相同的后缀，则就是最普通的暴力遍历</p>
+<p>假设存在，<code>0~i</code>的子串和<code>j-i~j</code>的子串是一致的:<code>next[j] = i</code>; （<code>i&lt;j</code>)</p>
+<p>即具有相同的后缀长度<code>（len=i+1)</code>，如果没有后缀，则认为后缀位置为-1；</p>
+<p>比较的是模式串<code>s</code>的第i+1个位置，和第j+1个位置的字符：</p>
+<ol>
+<li><p>如果位置<code>i+1</code>字符和位置<code>j+1</code>的字符相同<code>s.charAt(i+1)==s.charAt(j+1)</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(s.charAt(i+<span class="number">1</span>)==s.charAt(j+<span class="number">1</span>))&#123;</span><br><span class="line">    i++;</span><br><span class="line">    next[j+<span class="number">1</span>] = i; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>如果第i个字符和第j个位置的字符不同：</p>
+<ol>
+<li><p>找到i对应的后缀位置next[i]=k,</p>
+<p><code>i = next[i]</code>;</p>
+</li>
+<li><p>比较位置k+1字符和j+1进行比较</p>
+<p><code>if(s.charAt(i+1)==s.charAt(j+1))</code></p>
+</li>
+<li><p>如果还不一样重复1,2步，直到找到起始位置(<code>i=-1</code>)</p>
+<p><code>next[j] = i;</code></p>
+</li>
+<li><p>综合得出：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(i&gt;<span class="number">0</span>&amp;&amp;s.charAt(i+<span class="number">1</span>)!=s.charAt(j+<span class="number">1</span>))&#123;</span><br><span class="line">    i = next[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//跳出循环的原因如果是，字符相同</span></span><br><span class="line"><span class="keyword">if</span>(s.charAt(i+<span class="number">1</span>)==s.charAt(j+<span class="number">1</span>))&#123;</span><br><span class="line">    i++;</span><br><span class="line">    next[j+<span class="number">1</span>] = i; </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	next[j+<span class="number">1</span>] = i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p> 遍历</p>
+</li>
+</ol>
+   <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getNext</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> [] next = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()];</span><br><span class="line">    <span class="comment">//next[i]指的是以位置i字符结尾和以位置next[i]结尾的字符串具有相同的后缀，长度为i+1;</span></span><br><span class="line">    <span class="keyword">int</span> i = -<span class="number">1</span>;<span class="comment">//最开始没有相同后缀,后缀末尾字符为-1；</span></span><br><span class="line">    next[<span class="number">0</span>] = i; </span><br><span class="line">    <span class="comment">//比较字符时，应满足：0&lt;=i+1&lt;j+1&lt;s.length();</span></span><br><span class="line">    <span class="comment">//即i&gt;=-1,则j&gt;=0;  j&lt;s.length()-1,则i&lt;s.length()-2;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;s.length()-<span class="number">1</span>;j++)&#123;</span><br><span class="line">        <span class="comment">//1. 如果位置i+1字符和位置j+1的字符相同</span></span><br><span class="line">        <span class="keyword">if</span>(s.charAt(i+<span class="number">1</span>)==s.charAt(j+<span class="number">1</span>))&#123;</span><br><span class="line">            i++;<span class="comment">//前缀加1；</span></span><br><span class="line">            next[j+<span class="number">1</span>] = i; </span><br><span class="line">            <span class="comment">//2. 如果位置i+1字符和位置j+1的字符不同</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//到达初始位置跳出，字符相同跳出</span></span><br><span class="line">            <span class="keyword">while</span>(i&gt;=<span class="number">0</span>&amp;&amp;s.charAt(i+<span class="number">1</span>)!=s.charAt(j+<span class="number">1</span>))&#123;</span><br><span class="line">                i = next[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//跳出循环的原因如果是，字符相同</span></span><br><span class="line">            <span class="keyword">if</span>(s.charAt(i+<span class="number">1</span>)==s.charAt(j+<span class="number">1</span>))&#123;</span><br><span class="line">                i++;</span><br><span class="line">                next[j+<span class="number">1</span>] = i; </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                next[j+<span class="number">1</span>] = i;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>优化结构</p>
+<p>发现循环中有冗余结构，无论位置<code>i+1</code>字符和位置<code>j+1</code>的字符是否相同，都要变成相同的前缀，然后更新<code>next[j+1]</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getNext</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> [] next = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()];</span><br><span class="line">    <span class="keyword">int</span> i = -<span class="number">1</span>;<span class="comment">//最开始没有相同后缀,后缀末尾字符为-1；</span></span><br><span class="line">    next[<span class="number">0</span>] = i; </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;s.length()-<span class="number">1</span>;j++)&#123;</span><br><span class="line">        <span class="comment">//如果位置i+1字符和位置j+1的字符不同，则转换为相同的，或者初始位置</span></span><br><span class="line">        <span class="keyword">while</span>(i&gt;=<span class="number">0</span>&amp;&amp;s.charAt(i+<span class="number">1</span>)!=s.charAt(j+<span class="number">1</span>))&#123;</span><br><span class="line">                i = next[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//跳出循环的原因如果是，字符相同</span></span><br><span class="line">        <span class="keyword">if</span>(s.charAt(i+<span class="number">1</span>)==s.charAt(j+<span class="number">1</span>))&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        next[j+<span class="number">1</span>] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>字符串和模式串匹配</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">(String s, String t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> [] next = getNext(t);</span><br><span class="line">    <span class="keyword">int</span> i = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j= <span class="number">0</span>;j&lt;s.length();j++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(i&gt;=<span class="number">0</span>&amp;&amp;t.charAt(i+<span class="number">1</span>)!=s.charAt(j))&#123;</span><br><span class="line">        	i = next[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(t.charAt(i+<span class="number">1</span>)==s.charAt(j))&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i==t.length()-<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> j-t.length()+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>更改next数组的含义</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getNext</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> [] next = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()];</span><br><span class="line">    <span class="comment">//next[i]指的是以位置i字符结尾和以位置next[i]结尾的字符串，除了这两个结尾字符外具有相同的后缀，长度为i;</span></span><br><span class="line">    <span class="comment">//也就是说存储的是当前相同后缀的下一个</span></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;<span class="comment">//字符串从位置0开始</span></span><br><span class="line">    next[<span class="number">0</span>] = i; </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;s.length();j++)&#123;</span><br><span class="line">        <span class="comment">//如果位置i+1字符和位置j+1的字符不同，则转换为相同的，或者初始位置</span></span><br><span class="line">        <span class="keyword">while</span>(i&gt;<span class="number">0</span>&amp;&amp;s.charAt(i)!=s.charAt(j))&#123;</span><br><span class="line">            i= next[i-<span class="number">1</span>];<span class="comment">//根据相同的后缀，返回下一个字符</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//跳出循环的原因如果是，字符相同</span></span><br><span class="line">        <span class="keyword">if</span>(s.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        next[j] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//字符串和模式串匹配</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">(String s, String t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> [] next = getNext(t);</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j= <span class="number">0</span>;j&lt;s.length();j++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(i&gt;<span class="number">0</span>&amp;&amp;t.charAt(i)!=s.charAt(j))&#123;</span><br><span class="line">            i = next[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(t.charAt(i)==s.charAt(j))&#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i==t.length())&#123;</span><br><span class="line">            <span class="keyword">return</span> j-t.length()+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>KMP</tag>
+        <tag>字符串匹配</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/posts/0/</url>
+    <content><![CDATA[<p>二进制化计算模板：</p>
+<p>将幂二进制化,每次累乘时乘以对应阶数的因数，达到<code>logn</code>的复杂度，</p>
+<p>将乘数二进制化，每次累加对应阶数的加数，达到快速乘的目的</p>
+<h3 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h3><p>如计算5^13</p>
+<p>将幂数<code>18</code>二进制化为<code>1101</code>,此时变成计算<code>(5^1)*(5^2)*(5^4)</code>的方式，具体模板如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">long</span> a ;	<span class="comment">//底数</span></span><br><span class="line"><span class="keyword">long</span> b ;	<span class="comment">//幂指数</span></span><br><span class="line"><span class="keyword">long</span> sum = <span class="number">1</span>;<span class="comment">//累乘积</span></span><br><span class="line"><span class="keyword">while</span>(b&gt;<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="comment">//遍历b的二进制,判断当前末端位是否为1</span></span><br><span class="line">    <span class="keyword">if</span>((b&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;</span><br><span class="line">        sum *= a;<span class="comment">//说明当前位有，乘以此时阶数的乘数因子</span></span><br><span class="line">    &#125;</span><br><span class="line">    b= b&gt;&gt;<span class="number">1</span>;<span class="comment">//左移一位</span></span><br><span class="line">    a = a*a;<span class="comment">//b每次左移，乘数因子每多一阶；</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用例</p>
+<p>求<code>(a^b) mod p</code></p>
+<p>因为乘积较大，因此可以先将a缩小：<code>(a^b) mod p = ((a mod p)^b) mod p</code>，再进行快速幂计算。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">long</span> a = scan.nextInt();  <span class="comment">//底数</span></span><br><span class="line"><span class="keyword">long</span> b = scan.nextInt();  <span class="comment">//幂指数</span></span><br><span class="line"><span class="keyword">long</span> p = scan.nextInt(); <span class="comment">//被余数</span></span><br><span class="line"><span class="keyword">long</span> sum = <span class="number">1</span>;<span class="comment">//累乘积</span></span><br><span class="line">a = a%p; <span class="comment">//缩小底数</span></span><br><span class="line"><span class="comment">//快速幂计算</span></span><br><span class="line"><span class="keyword">while</span>(b&gt;<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>((b&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;</span><br><span class="line">        sum *= a;</span><br><span class="line">        sum %= p;<span class="comment">// 每次计算后，都要取余，防止乘积过大溢出</span></span><br><span class="line">    &#125;</span><br><span class="line">    b= b&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    a = a*a%p; <span class="comment">//每次升阶，也要取余，防止乘积过大溢出</span></span><br><span class="line">&#125;</span><br><span class="line">System.out.println(sum);</span><br></pre></td></tr></table></figure>
+
+<h3 id="快速乘"><a href="#快速乘" class="headerlink" title="快速乘"></a>快速乘</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">long</span> a;</span><br><span class="line"><span class="keyword">long</span> b;</span><br><span class="line"><span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(b&gt;<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>((b&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;</span><br><span class="line">        sum += a;</span><br><span class="line">    &#125;</span><br><span class="line">    a = a&lt;&lt;<span class="number">1</span>;</span><br><span class="line">    b = b&gt;&gt;<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>求解<code>a*b mod p</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">long</span> a= scan.nextInt();</span><br><span class="line"><span class="keyword">long</span> b = scan.nextInt();</span><br><span class="line"><span class="keyword">long</span> p = scan.nextInt();</span><br><span class="line">a %= p;</span><br><span class="line"><span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(b&gt;<span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>((b&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;</span><br><span class="line">        sum += a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sum&gt;=p)&#123;</span><br><span class="line">        sum -= p;</span><br><span class="line">    &#125;</span><br><span class="line">    a = a&lt;&lt;<span class="number">1</span>;</span><br><span class="line">    a %= p;</span><br><span class="line">    b = b&gt;&gt;<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(sum);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>动态规划专题</title>
+    <url>/posts/9da4db97/</url>
+    <content><![CDATA[<p>记录一些学到的关于动态规划的知识。</p>
+<span id="more"></span>
+
+<h3 id="题目特点"><a href="#题目特点" class="headerlink" title="题目特点"></a>题目特点</h3><div class="note info"><ol>
+<li><strong>计数</strong><br> 有多少种方式走到右下角<br> 有多少种方法选出k个数使得和是Sum</li>
+</ol>
+</div>
+
+<div class="note primary"><ol start="2">
+<li><strong>求最大最小值</strong><br> 从左上角走到右下角路径的最大数字和<br> 最长上升子序列长度</li>
+</ol>
+</div>
+
+<div class="note success"><ol start="3">
+<li><strong>求存在性</strong><br> 取石子游戏，先手是否必胜<br> 能不能选出k个数使得和是sum</li>
+</ol>
+</div>
+
+<h3 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h3><p>1.确定状态<br>        最后一步是什么？<br>        子问题是什么？</p>
+<p>2.转移状态</p>
+<p>​    状态方程</p>
+<p>3.初始条件和边界条件</p>
+<p>​    什么时候结束</p>
+<h3 id="硬币问题"><a href="#硬币问题" class="headerlink" title="硬币问题"></a>硬币问题</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">问题：</span><br><span class="line">    给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。</span><br><span class="line">    计算并返回可以凑成总金额所需的最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。</span><br><span class="line">    你可以认为每种硬币的数量是无限的。</span><br><span class="line">提示：</span><br><span class="line">    1 &lt;= coins.length &lt;= 12</span><br><span class="line">    1 &lt;= coins[i] &lt;= 2^31 - 1</span><br><span class="line">    0 &lt;= amount &lt;= 10^4</span><br></pre></td></tr></table></figure>
+
+<p><strong>分析：</strong></p>
+<p>求：凑成总金额amount所需的最少的硬币个数</p>
+<ol>
+<li><strong>确定状态：</strong><ul>
+<li>最后一个硬币：coins[i]</li>
+<li>子问题：求amount-coins[i]</li>
+</ul>
+</li>
+<li><strong>确定方程：</strong><ul>
+<li><code>f[amount] = Min&#123;f[amount-coins[0]],f[amount-coins[1]],...,f[amount-coins[i]]&#125;+1</code></li>
+<li><code>f[amount]:表示金额为amount的最少硬币组合数</code></li>
+</ul>
+</li>
+<li><strong>初始条件和边界条件</strong><ul>
+<li><strong>初始条件：</strong> <ul>
+<li><code>f[0] = 0</code>  表示金额为0的最少硬币组合数为<code>0</code></li>
+<li><code>f[i] = INF,0&lt;i&lt;=amount</code> 表示金额为<code>i</code>在初始情况下不能直接拼出</li>
+</ul>
+</li>
+<li><strong>边界条件</strong><ul>
+<li><code>0&lt;=金额&lt;=amount</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="keyword">int</span>[] coins, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[amount+<span class="number">1</span>];	<span class="comment">//存放总金额为0~amount的最少组合数</span></span><br><span class="line">    Arrays.fill(a,<span class="number">1000000</span>);			<span class="comment">//初始条件,根据提示范围则最多的组合数amount/coins[i]&lt;=10^4,因此最大值取值最少应大于等于10000</span></span><br><span class="line">    a[<span class="number">0</span>]=<span class="number">0</span>;		<span class="comment">//示金额为0的最少硬币组合数为0								</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=amount;i++)&#123;</span><br><span class="line">        <span class="comment">//在每种金额下遍历最后一枚硬币产生的最少组合数，并加上相应的硬币</span></span><br><span class="line">        <span class="comment">//a[i] = Min&#123;a[i-coin[0]],a[i-coin[1]],...,a[i-coin[k]]&#125;+1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> coin : coins)&#123;</span><br><span class="line">            <span class="comment">//边界条件：0&lt;=金额&lt;=amount</span></span><br><span class="line">            <span class="keyword">if</span>(i-coin&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">                a[i] = Math.min(a[i],a[i-coin]+<span class="number">1</span> );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//是否存在组合</span></span><br><span class="line">    <span class="keyword">return</span> a[amount]&gt;=<span class="number">1000000</span>?-<span class="number">1</span>:a[amount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>背包问题：分组背包</title>
     <url>/posts/44826182/</url>
     <content><![CDATA[<p>有 N 组物品和一个容量是 V 的背包。<strong>每组物品有若干个，同一组内的物品最多只能选一个</strong>。</p>
@@ -1907,7 +2092,7 @@ exists(完整的查询语句)
 <p>选择SSH and GPG keys</p>
 <p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#x6f;&#109;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#109;">&#103;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#111;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
