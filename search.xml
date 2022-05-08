@@ -4,11 +4,11 @@
     <title>多线程系列：ThreadPoolExecutor的实现和底层逻辑原理</title>
     <url>/posts/c2a21e7d/</url>
     <content><![CDATA[<p>ThreadPoolExecutor的七个参数介绍即底层实现原理</p>
-<I--more-->
+<span id="more"></span>
 
 <h3 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> ThreadPoolExecutor(</span><br><span class="line">    <span class="keyword">int</span> corePoolSize,	<span class="comment">//线程池的核心线程数</span></span><br><span class="line">    <span class="keyword">int</span> maximumPoolSize,	<span class="comment">//能容纳的最大线程数</span></span><br><span class="line">    <span class="keyword">long</span> keepAliveTime,		<span class="comment">//救急线程存活时间</span></span><br><span class="line">    TimeUnit unit,		<span class="comment">//救急时间的时间单位</span></span><br><span class="line">    BlockingQueue&lt;Runnable&gt; workQueue,	<span class="comment">//存放提交但未执行任务的队列</span></span><br><span class="line">    ThreadFactory threadFactory,		<span class="comment">//创建线程的工厂类</span></span><br><span class="line">    RejectedExecutionHandler handler	<span class="comment">//等待队列满后的拒绝策略</span></span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
 
-<h3 id="底层逻辑"><a href="#底层逻辑" class="headerlink" title="底层逻辑"></a>底层逻辑</h3><pre class="mermaid">flowchart TD;
+<h3 id="底层逻辑"><a href="#底层逻辑" class="headerlink" title="底层逻辑"></a>底层逻辑</h3><pre class="mermaid">graph TD;
 A["新任务"];
 B{是否大于核心线程数<br>corePoolSize};
 A-->B;
@@ -16,14 +16,8 @@ B-->|Yes| C{阻塞队列是否满了<br>workQueue};
 B-->|No| D[将线程放入线程池的<br>创建核心线程处理 ];
 C-->|满了| E{是否超出最大线程数量<br>maximumPoolSize};
 C-->|未满| F[放入到阻塞队列<br>workQueue];
-E-->|超出| G;
-E-->|未超出| H[在线程池中创建救急线程处理];
-subgraph G[拒绝策略 handler];
-AA[CallerRunsPolicy];
-AB[AbortPolicy];
-AC[DiscardPolicy];
-AD[DiscardOldestPolicy];
-end</pre>
+E-->|超出| G[拒绝策略 handler];
+E-->|未超出| H[在线程池中创建救急线程处理];</pre>
 
 <h3 id="拒绝策略"><a href="#拒绝策略" class="headerlink" title="拒绝策略"></a>拒绝策略</h3><p><strong>AbortPolicy:</strong><br>    丢弃任务，并抛出拒绝执行 RejectedExecutionException 异常信息。线程池默认的拒绝策略。必须处理好抛出的异常，否则会打断当前的执行流程，影响后续的任务执行;</p>
 <p><strong>CallerRunsPolicy:</strong><br>    当触发拒绝策略，只要线程池没有关闭的话，则使用<code>调用线程</code>直接运行任务。一般并发比较小，性能要求不高，不允许失败。但是，由于调用者自己运行任务，如果任务提交速度过快，可能导致程序阻塞，性能效率上必然的损失较大;</p>
@@ -2175,7 +2169,7 @@ exists(完整的查询语句)
 <p>选择SSH and GPG keys</p>
 <p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;">&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
 <p><img src="ssh-setup6.jpg"><br>新建项目</p>
 <p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
