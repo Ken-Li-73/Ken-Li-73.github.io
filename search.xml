@@ -67,7 +67,7 @@
 <span id="more"></span>
 
 <h3 id="1-动态规划"><a href="#1-动态规划" class="headerlink" title="1.动态规划"></a>1.动态规划</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[i] 表示背包总容量是i的情况下，最大价值是多少</span><br><span class="line">v[i] 表示第i个物品的容量是多少</span><br><span class="line">w[i] 表示第i个物品的价值是多少</span><br></pre></td></tr></table></figure>
-<p>根据01背包的概念，完全背包其实就是在每种物品选择了0…V&#x2F;vi个，转换为01背包问题，变成<strong>第i种的第k个物品选不选择</strong>的问题。</p>
+<p>根据01背包的概念，完全背包其实就是在每种物品选择了0…V/vi个，转换为01背包问题，变成<strong>第i种的第k个物品选不选择</strong>的问题。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">max&#123;f[v1,v1,v1,...,v1,v2,v2,...,v2,v3,v3,...,v3,v4,...,...vm]&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//状态表达式：在01背包的基础上进行扩展</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//选择第i种物品</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=m;j&gt;v[i];j--)&#123;<span class="comment">//在不选择第i中物品时，容量考虑选择到i-1种物品的最大价值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>;k*v[i]&lt;=j;k++)&#123;<span class="comment">//在选择第i件物品时，选择几件，01背包的的扩展</span></span><br><span class="line">            f[j] = Math.max(f[j],f[j-k*v[i]]+k*w[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
@@ -75,7 +75,7 @@
 <h3 id="2-优化：内层循环正序遍历"><a href="#2-优化：内层循环正序遍历" class="headerlink" title="2.优化：内层循环正序遍历"></a>2.优化：内层循环正序遍历</h3><p><strong>意义：</strong><br>    表示在容量为0……V时，选择了第i件物品，由于是从小到大，<strong>每个容量变化都包含着若干个体积为v[i]的物品</strong>。<br>    因此正序，恰好可以满足包含选择若干个第i种物品的要求</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//选择第i种物品</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=v[i];j&lt;=m;j++)&#123;<span class="comment">//在选择第i中物品时，容量更新前是i-1种物品的最大价值，更新后是考虑了第i种物品。</span></span><br><span class="line">        f[j] = Math.max(f[j],f[j-v[i]]+w[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
 <p><strong>举例：</strong></p>
-<p>​	在外循环第<code>i</code>层，内循环第<code>j</code>次时的更新<code>f[j]</code>，因此是正序，所以是从小到大遍历f数组。此时：</p>
+<p>​    在外循环第<code>i</code>层，内循环第<code>j</code>次时的更新<code>f[j]</code>，因此是正序，所以是从小到大遍历f数组。此时：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">f[0]: 表示考虑第i个物品，容量为0时的价值。</span><br><span class="line">f[1]: 表示考虑第i个物品，容量为1时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-k*v[i]]:表示考虑第i个物品,容量为j-k*v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-(k-1)*v[i]]:表示考虑第i个物品,容量为j-(k-1)*v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-*v[i]]:表示考虑第i个物品,容量为j-v[i]时的价值。</span><br><span class="line">...</span><br><span class="line">f[j-1]: 表示考虑第i个物品，容量为j-1时的价值。</span><br><span class="line">f[j]: 表示考虑第i-1个物品，容量为j时的价值。</span><br><span class="line">f[j+1]: 表示考虑第i-1个物品，容量为j+1时的价值。</span><br><span class="line">...</span><br><span class="line">f[m]: 表示考虑第i-1个物品，容量为m时的价值。</span><br></pre></td></tr></table></figure>
 <p>迭代计算</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">计算f[j-(k-1)*v[i]] = Math.max(f[j-(k-1)*v[i]],f[j-k*v[i]]+w[i]),</span><br><span class="line">计算f[j-(k-2)*v[i]] = Math.max(f[j-(k-2)*v[i]],f[j-(k-1)*v[i]]+w[i]),</span><br><span class="line">...</span><br><span class="line">计算f[j] = Math.max(f[j],f[j-v[i]]+w[i]),</span><br></pre></td></tr></table></figure>
@@ -154,7 +154,7 @@
 </ol>
 <span id="more"></span>
 
-<h3 id="1-搭建递归函数主体"><a href="#1-搭建递归函数主体" class="headerlink" title="1.搭建递归函数主体"></a>1.搭建递归函数主体</h3><p>​	从条件1可以看出，平衡二叉树左右子树也是平衡二叉树，这是明显的递归思想体现，以此搭建递归函数主体。</p>
+<h3 id="1-搭建递归函数主体"><a href="#1-搭建递归函数主体" class="headerlink" title="1.搭建递归函数主体"></a>1.搭建递归函数主体</h3><p>​    从条件1可以看出，平衡二叉树左右子树也是平衡二叉树，这是明显的递归思想体现，以此搭建递归函数主体。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">    <span class="comment">//1.左右子树也是平衡二叉树</span></span><br><span class="line">    method(root.left);</span><br><span class="line">    method(root.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从条件2可以看出，左右子树的高度相差不超过1，因此这个函数的返回值应该为<strong>当前节点的高度</strong>，这样才能在函数体内比较高度，进一步细化，将返回类型设为<code>int</code>。</p>
@@ -645,7 +645,7 @@ set global transaction isolation level read committed;
     <content><![CDATA[<p>学习笔记：介绍对MySQL中库和表的属性的操作。</p>
 <span id="more"></span>
 
-<h3 id="1-库和表的管理"><a href="#1-库和表的管理" class="headerlink" title="1.库和表的管理"></a>1.库和表的管理</h3><p>​    一、库的管理<br>​        创建、修改、删除<br>​    二、表的管理<br>​        创建、修改、删除<br>​    	创建:create<br>​    	修改:alter<br>​    	删除:drop</p>
+<h3 id="1-库和表的管理"><a href="#1-库和表的管理" class="headerlink" title="1.库和表的管理"></a>1.库和表的管理</h3><p>​    一、库的管理<br>​        创建、修改、删除<br>​    二、表的管理<br>​        创建、修改、删除<br>​        创建:create<br>​        修改:alter<br>​        删除:drop</p>
 <h4 id="1-1-库管理"><a href="#1-1-库管理" class="headerlink" title="1.1.库管理"></a>1.1.库管理</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 创建一个库books</span></span><br><span class="line"><span class="keyword">CREATE</span> DATABASE books;</span><br><span class="line"><span class="keyword">SHOW</span> DATABASES;</span><br><span class="line"><span class="comment">-- 增加容错性</span></span><br><span class="line"><span class="keyword">CREATE</span> DATABASE IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> books ;</span><br><span class="line"><span class="comment">-- 暂时不能修改库名，容易丢失数据，不够安全</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 更改字符集</span></span><br><span class="line"><span class="keyword">ALTER</span> DATABASE books <span class="type">CHARACTER</span> <span class="keyword">SET</span> gbk;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除库</span></span><br><span class="line"><span class="keyword">DROP</span> DATABASE IF <span class="keyword">EXISTS</span> books;</span><br></pre></td></tr></table></figure>
 
 <h4 id="1-2-表的管理"><a href="#1-2-表的管理" class="headerlink" title="1.2.表的管理"></a>1.2.表的管理</h4><h5 id="1-2-1-表结构的创建"><a href="#1-2-1-表结构的创建" class="headerlink" title="1.2.1 表结构的创建"></a>1.2.1 表结构的创建</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span>表名(</span><br><span class="line">    列名 列的类型【(长度) 约束】</span><br><span class="line">    列名 列的类型【(长度) 约束】</span><br><span class="line">    列名 列的类型【(长度) 约束】</span><br><span class="line">    列名 列的类型【(长度) 约束】</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
@@ -896,7 +896,7 @@ set global transaction isolation level read committed;
         行子查询(结果集有一行多列或多行多列)  
         表子查询(结果集一般为多行多列)    
 </code></pre>
-<h3 id="1-放在WHERE或者HAVING后面"><a href="#1-放在WHERE或者HAVING后面" class="headerlink" title="1. 放在WHERE或者HAVING后面"></a>1. 放在WHERE或者HAVING后面</h3><h4 id="1-1-标量子查询-一行一列）"><a href="#1-1-标量子查询-一行一列）" class="headerlink" title="1.1. 标量子查询(一行一列）"></a>1.1. 标量子查询(一行一列）</h4><p>操作符有：&gt; &lt; &#x3D; &lt;&gt;</p>
+<h3 id="1-放在WHERE或者HAVING后面"><a href="#1-放在WHERE或者HAVING后面" class="headerlink" title="1. 放在WHERE或者HAVING后面"></a>1. 放在WHERE或者HAVING后面</h3><h4 id="1-1-标量子查询-一行一列）"><a href="#1-1-标量子查询-一行一列）" class="headerlink" title="1.1. 标量子查询(一行一列）"></a>1.1. 标量子查询(一行一列）</h4><p>操作符有：&gt; &lt; = &lt;&gt;</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 谁的工资比Abel高</span></span><br><span class="line"><span class="keyword">SELECT</span> last_name</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">    salary<span class="operator">&gt;</span>(</span><br><span class="line">    <span class="keyword">SELECT</span> salary</span><br><span class="line">    <span class="keyword">FROM</span> employees</span><br><span class="line">    <span class="keyword">WHERE</span> last_name <span class="operator">=</span> <span class="string">&#x27;Abel&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 返回job_id与141号员工相同，salary比143号员工多的员工姓名，job_id 和工资</span></span><br><span class="line"><span class="keyword">SELECT</span> last_name,job_id,salary</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> job_id <span class="operator">=</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> job_id</span><br><span class="line">    <span class="keyword">FROM</span> employees</span><br><span class="line">    <span class="keyword">WHERE</span>  employee_id <span class="operator">=</span> <span class="number">141</span>)</span><br><span class="line"><span class="keyword">AND</span> salary <span class="operator">&gt;</span>(</span><br><span class="line">    <span class="keyword">SELECT</span> salary</span><br><span class="line">    <span class="keyword">FROM</span> employees</span><br><span class="line">    <span class="keyword">WHERE</span> employee_id <span class="operator">=</span> <span class="number">143</span>);</span><br></pre></td></tr></table></figure>
@@ -905,7 +905,7 @@ set global transaction isolation level read committed;
 
 <h4 id="1-2-列子查询"><a href="#1-2-列子查询" class="headerlink" title="1.2. 列子查询"></a>1.2. 列子查询</h4><p>操作符有：   </p>
 <blockquote>
-<p>IN&#x2F;NOT IN  等于列表中的任意一个<br>例： a IN (10,20,30)      相当于 a &#x3D; 10 OR a &#x3D; 20 OR a &#x3D; 30<br>ANY|SOME  和子查询返回的的某一个值比较<br>例： a &gt; ANY (10,20,30)   相当于 a&gt; MIN(10,20,30)<br>例： a &lt; ANY (10,20,30)    相当于 a&lt; MAX(10,20,30)<br>ALL 和子查询返回的所有值比较<br>例： a &gt; ALL (10,20,30)    相当于 a&gt; MAX(10,20,30)<br>例： a &lt; ALL (10,20,30)    相当于 a&lt; MIN(10,20,30)   </p>
+<p>IN/NOT IN  等于列表中的任意一个<br>例： a IN (10,20,30)      相当于 a = 10 OR a = 20 OR a = 30<br>ANY|SOME  和子查询返回的的某一个值比较<br>例： a &gt; ANY (10,20,30)   相当于 a&gt; MIN(10,20,30)<br>例： a &lt; ANY (10,20,30)    相当于 a&lt; MAX(10,20,30)<br>ALL 和子查询返回的所有值比较<br>例： a &gt; ALL (10,20,30)    相当于 a&gt; MAX(10,20,30)<br>例： a &lt; ALL (10,20,30)    相当于 a&lt; MIN(10,20,30)   </p>
 </blockquote>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> last_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> departments d</span><br><span class="line"><span class="keyword">ON</span> d.department_id <span class="operator">=</span> e.department_id</span><br><span class="line"><span class="keyword">WHERE</span> location_id <span class="keyword">IN</span> (<span class="number">1400</span>,<span class="number">1700</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> last_name</span><br><span class="line"><span class="keyword">FROM</span> employees </span><br><span class="line"><span class="keyword">WHERE</span> department_id <span class="keyword">IN</span>(</span><br><span class="line">    <span class="keyword">SELECT</span> department_id</span><br><span class="line">    <span class="keyword">FROM</span> departments</span><br><span class="line">    <span class="keyword">WHERE</span> location_id <span class="keyword">IN</span> (<span class="number">1400</span>,<span class="number">1700</span>)</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
 
@@ -994,10 +994,10 @@ exists(完整的查询语句)
 <h4 id="2-2-外连接"><a href="#2-2-外连接" class="headerlink" title="2.2.外连接"></a>2.2.外连接</h4><p>应用场景:用于查询一个表中有,另一个表没有的记录<br>特点:</p>
 <ul>
 <li>外连接的查询结果为主表中的所有记录,如果从表中有和它匹配的,则显示匹配的值,如果从表中没有和它匹配的,则显示null</li>
-<li>外连接查询结果&#x3D;内连接结果+主表中有而从表没有匹配结果的记录.换言之，外连接结果必须包含主表所有记录，相配的从表记录可以null</li>
+<li>外连接查询结果=内连接结果+主表中有而从表没有匹配结果的记录.换言之，外连接结果必须包含主表所有记录，相配的从表记录可以null</li>
 <li>左外连接,left join左边的是主表;右外连接,right join右边的是主表</li>
 <li>左外和右外交换两个表的顺序，可以实现同样的效果</li>
-<li>全外连接&#x3D;内连接的结果+表1中有但表2没有的+表2中有但表1没有的(MySQL不支持)</li>
+<li>全外连接=内连接的结果+表1中有但表2没有的+表2中有但表1没有的(MySQL不支持)</li>
 </ul>
 <h5 id="2-2-1-外连接"><a href="#2-2-1-外连接" class="headerlink" title="2.2.1.外连接"></a>2.2.1.外连接</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 左外连接</span></span><br><span class="line"><span class="comment">-- 查询男朋友不在男神表的女神名</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` ,`boyName`</span><br><span class="line"><span class="keyword">FROM</span> `beauty` be</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> `boys` bo <span class="keyword">ON</span> be.`boyfriend_id` <span class="operator">=</span> bo.`id`</span><br><span class="line"><span class="keyword">WHERE</span> bo.`id` <span class="keyword">IS</span> <span class="keyword">NULL</span>; <span class="comment">-- 一般主键不为空</span></span><br></pre></td></tr></table></figure>
 
@@ -1191,7 +1191,7 @@ exists(完整的查询语句)
 
 <h3 id="1语法格式"><a href="#1语法格式" class="headerlink" title="1语法格式"></a>1语法格式</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT 查询列表             	③</span><br><span class="line">FROM 表                     	①</span><br><span class="line">【 WHERE 语句 】                ②</span><br><span class="line">ORDER BY 排序列表 【 asc|desc 】 ④</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-特点"><a href="#2-特点" class="headerlink" title="2.特点"></a>2.特点</h3><p>​	1.asc代表的是升序,desc代表的是降序如果不写，默认是升序<br>​	2.order by子句中可以支持单个字段、多个字段、表达式、函数、别名<br>​	3. order by子句一般是放在查询语句的最后面，limit子句除外</p>
+<h3 id="2-特点"><a href="#2-特点" class="headerlink" title="2.特点"></a>2.特点</h3><p>​    1.asc代表的是升序,desc代表的是降序如果不写，默认是升序<br>​    2.order by子句中可以支持单个字段、多个字段、表达式、函数、别名<br>​    3. order by子句一般是放在查询语句的最后面，limit子句除外</p>
 <h3 id="3-举例"><a href="#3-举例" class="headerlink" title="3.举例"></a>3.举例</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 查询员工信息，要求工资从高到低排序 </span><br><span class="line">SELECT</span><br><span class="line">	*</span><br><span class="line">FROM</span><br><span class="line">	employees</span><br><span class="line">ORDER BY salary DESC; </span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 按入职时间显示员工信息</span><br><span class="line">SELECT	</span><br><span class="line">	*</span><br><span class="line">FROM </span><br><span class="line">	employees</span><br><span class="line">WHERE </span><br><span class="line">	department_id&gt;=90</span><br><span class="line">ORDER BY hiredate ASC;</span><br></pre></td></tr></table></figure>
@@ -1239,7 +1239,7 @@ exists(完整的查询语句)
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 查询有奖金的员工名和奖金率</span><br><span class="line">SELECT </span><br><span class="line">	last_name,</span><br><span class="line">	commission_pct</span><br><span class="line">FROM </span><br><span class="line">	employees</span><br><span class="line">WHERE</span><br><span class="line">	commission_pct IS NOT NULL;</span><br></pre></td></tr></table></figure>
 
-<p>特殊：安全等于 &lt;&#x3D;&gt; （相当于 &#x3D; 和 IS 的功能) </p>
+<p>特殊：安全等于 &lt;=&gt; （相当于 = 和 IS 的功能) </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IS NULL 和 &lt;=&gt;区别</span><br><span class="line">IS NULL:仅仅可以判断 NULL值,可读性较高，建议使用</span><br><span class="line">&lt;=&gt;:既可以判断 NULL值，又可以判断普通的数值，可读性较低</span><br></pre></td></tr></table></figure>
 
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
@@ -1391,25 +1391,25 @@ exists(完整的查询语句)
 
 <p><strong>正确连接信号线和电源线</strong>，信号灯会进行闪烁。</p>
 <h2 id="配置PC端IP"><a href="#配置PC端IP" class="headerlink" title="配置PC端IP"></a>配置PC端IP</h2><p>打开电脑的网络设置，设置以太网Ipv4分配。</p>
-<p><img src="/posts/dda0e464/connect_2.jpg"></p>
+<p><img src="connect_2.jpg"></p>
 <h2 id="配置通讯转换器（USR-DR302）"><a href="#配置通讯转换器（USR-DR302）" class="headerlink" title="配置通讯转换器（USR-DR302）"></a>配置通讯转换器（USR-DR302）</h2><p>在浏览器上输入ip地址<code>192.168.0.7</code>会弹出一个页面。</p>
-<p><img src="/posts/dda0e464/connect_3.jpg"></p>
+<p><img src="connect_3.jpg"></p>
 <p>如果没有弹出页面：</p>
 <ul>
 <li>一种可能是线路连接问题，检查一遍线路。</li>
 <li>还有一种可能是将设备模块的<code>默认ip</code>被修改了，可以通过<a href="https://www.usr.cn/Down/USR-DR302_V1.0.3.pdf">串口AT指令</a>查询或者<code>重置</code>。</li>
 </ul>
-<h2 id="配置本机ip设置"><a href="#配置本机ip设置" class="headerlink" title="配置本机ip设置"></a>配置本机ip设置</h2><p><img src="/posts/dda0e464/connect_4.jpg"></p>
+<h2 id="配置本机ip设置"><a href="#配置本机ip设置" class="headerlink" title="配置本机ip设置"></a>配置本机ip设置</h2><p><img src="connect_4.jpg"></p>
 <p>除了<code>ip地址</code>不同（不冲突，建议默认），其他的<code>子网掩码</code>，<code>网关地址</code>，<code>DNS服务器</code>和在PC配置的<code>IPv4</code>一样。完成后，<code>重启</code>模块。</p>
-<h2 id="配置端口参数"><a href="#配置端口参数" class="headerlink" title="配置端口参数"></a>配置端口参数</h2><p><img src="/posts/dda0e464/connect_5.jpg"></p>
+<h2 id="配置端口参数"><a href="#配置端口参数" class="headerlink" title="配置端口参数"></a>配置端口参数</h2><p><img src="connect_5.jpg"></p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">波特率:</span> <span class="number">9600</span>    <span class="comment">#所使用的传感器在这个频段，WT61-PC485在这个频段</span></span><br><span class="line"><span class="string">本地端口:</span> <span class="number">8000</span>	<span class="comment">#可以随意给一个</span></span><br><span class="line"><span class="string">工作方式:</span> <span class="string">TCP</span> <span class="string">Server</span> </span><br></pre></td></tr></table></figure>
 
 <p>完成后，<code>重启</code>模块</p>
 <h2 id="配置扩散功能"><a href="#配置扩散功能" class="headerlink" title="配置扩散功能"></a>配置扩散功能</h2><p>打开<code>Modbus TCP</code>功能</p>
-<p><img src="/posts/dda0e464/connect_6.jpg"></p>
+<p><img src="connect_6.jpg"></p>
 <p>完成后，<code>重启</code>模块</p>
 <h2 id="测试通讯"><a href="#测试通讯" class="headerlink" title="测试通讯"></a>测试通讯</h2><p>打开<a href="https://www.usr.cn/Down/Software/USR-TCP232-Test-V1.3.exe">TCP串口调试助手</a>，或者网络调试助手。</p>
-<p><img src="/posts/dda0e464/connect_7.jpg"></p>
+<p><img src="connect_7.jpg"></p>
 <p>按图示操作，中间区域出现所要接收的报文，说明通讯成功。</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">协议类型:</span> <span class="string">TCP</span> <span class="string">Client</span>    </span><br><span class="line"><span class="string">服务器IP地址:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.7</span>	<span class="comment">#转换器模块的IP地址</span></span><br><span class="line"><span class="string">服务器端口号:</span> <span class="number">8000</span>		<span class="comment">#转换器模块的本地端口</span></span><br><span class="line"></span><br><span class="line"><span class="string">报文:</span> </span><br><span class="line">	<span class="string">modbusTCP表头:</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">06</span> 		<span class="comment">#后两个字节是数据报文的长度</span></span><br><span class="line">	<span class="string">数据报文:</span> <span class="number">50</span> <span class="number">03</span> <span class="number">00</span> <span class="string">3d</span> <span class="number">00</span> <span class="number">03</span>			<span class="comment">#除去CRC校验码的报文</span></span><br></pre></td></tr></table></figure>
 
@@ -1440,7 +1440,7 @@ exists(完整的查询语句)
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.header-inner</span> &#123;</span><br><span class="line">  <span class="attribute">z-index</span>: <span class="number">9999</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>重新构建页面，问题解决。</p>
-<p><img src="/posts/d62d9cd6/result.jpg"></p>
+<p><img src="result.jpg"></p>
 ]]></content>
       <tags>
         <tag>next</tag>
@@ -1449,7 +1449,7 @@ exists(完整的查询语句)
   <entry>
     <title>博客优化：页面美化</title>
     <url>/posts/f837761/</url>
-    <content><![CDATA[<p>​	博客搭建完成后需要做一些美化，下面是我在网上搜集并亲手试验过的一些美化功能。</p>
+    <content><![CDATA[<p>​    博客搭建完成后需要做一些美化，下面是我在网上搜集并亲手试验过的一些美化功能。</p>
 <span id="more"></span>
 
 <h3 id="添加动态粒子背景：canvas-nest"><a href="#添加动态粒子背景：canvas-nest" class="headerlink" title="添加动态粒子背景：canvas nest"></a>添加动态粒子背景：canvas nest</h3><p>站点根目录打开Git Bash</p>
@@ -1583,7 +1583,7 @@ exists(完整的查询语句)
 <h3 id="居中引用"><a href="#居中引用" class="headerlink" title="居中引用"></a>居中引用</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125; 引用内容 &#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote class="blockquote-center">
-<p>​	Later is never</p>
+<p>​    Later is never</p>
 
 </blockquote>
 
@@ -1610,23 +1610,23 @@ exists(完整的查询语句)
   <entry>
     <title>博客优化：添加评论</title>
     <url>/posts/7c915937/</url>
-    <content><![CDATA[<p>​	一篇心得，与人分享，怎么可以没有讨论呢，因此一篇文章的评论功能是必不可少的。</p>
+    <content><![CDATA[<p>​    一篇心得，与人分享，怎么可以没有讨论呢，因此一篇文章的评论功能是必不可少的。</p>
 <ol>
 <li>插入来必力评论系统</li>
 </ol>
 <span id="more"></span>
 
 <h2 id="来必力评论系统"><a href="#来必力评论系统" class="headerlink" title="来必力评论系统"></a>来必力评论系统</h2><h3 id="注册来必力-账号"><a href="#注册来必力-账号" class="headerlink" title="注册来必力 账号"></a>注册<a href="http://livere.com/">来必力 </a>账号</h3><p>验证邮箱就可以完成验证</p>
-<p><img src="/posts/7c915937/sign_1.jpg"></p>
+<p><img src="sign_1.jpg"></p>
 <p>登录来必力账号，选择<code>安装</code>，安装免费版</p>
-<p><img src="/posts/7c915937/sign_2.jpg"></p>
+<p><img src="sign_2.jpg"></p>
 <p>第一次下侧会出现一个框让你填写网站信息，然后获取代码就行。注意网络链接是你的博客链接。</p>
-<h3 id="复制data-uid代码"><a href="#复制data-uid代码" class="headerlink" title="复制data-uid代码"></a>复制<code>data-uid</code>代码</h3><p><img src="/posts/7c915937/sign_3.jpg"></p>
+<h3 id="复制data-uid代码"><a href="#复制data-uid代码" class="headerlink" title="复制data-uid代码"></a>复制<code>data-uid</code>代码</h3><p><img src="sign_3.jpg"></p>
 <p>4.配置主题文件</p>
 <p>在<code>/themes/next/_config.yml</code>,中找到<code>livere_uid</code>,粘贴代码</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">livere_uid:</span> <span class="string">&quot;uid代码&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="设置提醒"><a href="#设置提醒" class="headerlink" title="设置提醒"></a>设置提醒</h3><p><img src="/posts/7c915937/sign_4.jpg"></p>
+<h3 id="设置提醒"><a href="#设置提醒" class="headerlink" title="设置提醒"></a>设置提醒</h3><p><img src="sign_4.jpg"></p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>在根目录下打开<code>Git Bash</code>,输入</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean&amp;&amp;hexo g&amp;&amp;hexo d</span><br></pre></td></tr></table></figure>
 
@@ -1643,7 +1643,7 @@ exists(完整的查询语句)
   <entry>
     <title>博客优化：添加音乐</title>
     <url>/posts/ac324628/</url>
-    <content><![CDATA[<p>​	自己的博客，搭配上自己的歌单，写起来才更方松。配置过程比较简单，在博客页面中添加Metingjs代码，接着填入歌单信息就行。</p>
+    <content><![CDATA[<p>​    自己的博客，搭配上自己的歌单，写起来才更方松。配置过程比较简单，在博客页面中添加Metingjs代码，接着填入歌单信息就行。</p>
 <ol>
 <li>扩展侧边栏代码，添加QQ音乐</li>
 </ol>
@@ -1653,13 +1653,13 @@ exists(完整的查询语句)
 <ul>
 <li><p>新版本的next配置文件在<code>/source/hexo-theme-next/_config.yml</code></p>
 </li>
-<li><p>旧版本的next配置文件在&#96;&#96;&#x2F;themes&#x2F;next&#x2F;_config.yml&#96;</p>
+<li><p>旧版本的next配置文件在``/themes/next/_config.yml`</p>
 </li>
 <li><p>hexo5.0版本可以定义配置文件在<code>/_config.next.yml</code></p>
 </li>
 </ul>
 <h2 id="获取歌单信息"><a href="#获取歌单信息" class="headerlink" title="获取歌单信息"></a>获取歌单信息</h2><p>将自己的想添加的歌单分享出去，然后在浏览器上打开，其中的一串数，或者是<code>id=</code>，就是要获得信息。</p>
-<p><img src="/posts/ac324628/config_0.jpg"></p>
+<p><img src="config_0.jpg"></p>
 <h2 id="添加音乐代码"><a href="#添加音乐代码" class="headerlink" title="添加音乐代码"></a>添加音乐代码</h2><p>从<a href="https://blog.csdn.net/qq_39800978/article/details/109407258?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1.no_search_link&spm=1001.2101.3001.4242.2">Hexo博客设置背景音乐_Z先森9701的博客-CSDN博客</a>受到的启发，但由于是对源码进行修改，如果更新版本，则会产生代码冲突。因此最好是使用拓展的方式完成功能。</p>
 <h3 id="修改主题配置文件"><a href="#修改主题配置文件" class="headerlink" title="修改主题配置文件"></a>修改主题配置文件</h3><p>打开<code>/_config.next.yml</code>文件：(旧版本在<code>/themes/next/_config.yml</code>)</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="string">source/_data/sidebar.njk</span></span><br></pre></td></tr></table></figure>
@@ -1677,9 +1677,9 @@ exists(完整的查询语句)
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--pjax：防止跳转页面音乐暂停--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>打开<code>/_config.next.yml</code>文件中找到<code>pjax</code>，将它设置为<code>true</code>：(旧版本在<code>/themes/next/_config.yml</code>)</p>
-<p><img src="/posts/ac324628/config_3.jpg"></p>
+<p><img src="config_3.jpg"></p>
 <p>后面就可以通过<code>hexo</code>命令生成界面了。</p>
-<p><img src="/posts/ac324628/config_4.jpg"></p>
+<p><img src="config_4.jpg"></p>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -1694,7 +1694,7 @@ exists(完整的查询语句)
   <entry>
     <title>博客优化：文章链接</title>
     <url>/posts/706fbb62/</url>
-    <content><![CDATA[<p>​	hexo生成的链接的格式和文章的时间标题有关，当更换标题或者时间时，就会改变链接地址，导致产生死链。因此将其替换掉是一个一劳永逸的方法。</p>
+    <content><![CDATA[<p>​    hexo生成的链接的格式和文章的时间标题有关，当更换标题或者时间时，就会改变链接地址，导致产生死链。因此将其替换掉是一个一劳永逸的方法。</p>
 <ol>
 <li>使用hexo-abbrlink，永久固定链接</li>
 </ol>
@@ -1731,7 +1731,7 @@ exists(完整的查询语句)
   <entry>
     <title>博客优化：文章插图</title>
     <url>/posts/715bf213/</url>
-    <content><![CDATA[<p>​	一篇好的博文，不能只有文字，还需要有配图才行。我试过网上的很多方法都没有实现，最后还是找到了一种适合自己的方法。</p>
+    <content><![CDATA[<p>​    一篇好的博文，不能只有文字，还需要有配图才行。我试过网上的很多方法都没有实现，最后还是找到了一种适合自己的方法。</p>
 <p>1.<code>hexo</code>高版本的博文插入本地图片</p>
 <p>2.使用插件 <code>hexo-renderer-marked</code> </p>
 <span id="more"></span>
@@ -1779,7 +1779,7 @@ exists(完整的查询语句)
   <entry>
     <title>博客优化：持续集成</title>
     <url>/posts/2942ffab/</url>
-    <content><![CDATA[<p>​	通过AppVeyor将博客的编译的过程托管出去，一次配置，一劳永逸。</p>
+    <content><![CDATA[<p>​    通过AppVeyor将博客的编译的过程托管出去，一次配置，一劳永逸。</p>
 <ol>
 <li>从本地选择性上传博客源文件</li>
 <li>使用AppVeyor在线编译github的文件</li>
@@ -1790,13 +1790,13 @@ exists(完整的查询语句)
 <p>首先为什么会写这么一篇文章，一方面是为了记录一下自己的搭建心得，另一方面当然是为了方便了。</p>
 <p>在本地电脑上配置好所有的hexo环境之后，写好的md.文件只能在本地通过<code>hexo  -g</code> 编译，而且只能在这一台电脑上完成，如果你换一台电脑，或者硬盘崩了，都需要重新配置。</p>
 <p>如果我们把编译的过程托管出去，而我们只需要向github提交文件，就会简单很多。</p>
-<h2 id="GitHub备份源文件"><a href="#GitHub备份源文件" class="headerlink" title="GitHub备份源文件"></a><a href="https://github.com/">GitHub</a>备份源文件</h2><h3 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h3><p><img src="/posts/2942ffab/start_a_project.jpg"></p>
+<h2 id="GitHub备份源文件"><a href="#GitHub备份源文件" class="headerlink" title="GitHub备份源文件"></a><a href="https://github.com/">GitHub</a>备份源文件</h2><h3 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h3><p><img src="start_a_project.jpg"></p>
 <p>权限设为public</p>
-<p><img src="/posts/2942ffab/start_a_project2.jpg"></p>
+<p><img src="start_a_project2.jpg"></p>
 <p>初始化本地仓库（使用hexo搭建的本地文件夹,也就是原来使用<code>hexo -g</code>的站点目录）</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin 新建仓库的网址</span><br></pre></td></tr></table></figure>
 
-<p><img src="/posts/2942ffab/start_a_project3.jpg"></p>
+<p><img src="start_a_project3.jpg"></p>
 <h3 id="修改-gitignore文件"><a href="#修改-gitignore文件" class="headerlink" title="修改.gitignore文件"></a>修改<code>.gitignore</code>文件</h3><p>由于目录下一些文件是通过hexo -g 生成的，所以不需要去备份。</p>
 <p>在<code>.gitignore</code>文件添加不需要上传的文件如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line">package-lock.json</span><br></pre></td></tr></table></figure>
@@ -1806,43 +1806,43 @@ exists(完整的查询语句)
 
 <p>此时查看自己的仓库，应该已经有了文件。</p>
 <h2 id="注册AppVeyor"><a href="#注册AppVeyor" class="headerlink" title="注册AppVeyor"></a>注册AppVeyor</h2><h3 id="登录AppVeyor"><a href="#登录AppVeyor" class="headerlink" title="登录AppVeyor"></a>登录<a href="https://ci.appveyor.com/login">AppVeyor</a></h3><p>Appveyor对于windows支持比较友好，支持代码提交到github。</p>
-<p><img src="/posts/2942ffab/CI_1.jpg"></p>
+<p><img src="CI_1.jpg"></p>
 <p>第一次登录时，会让github授权，同意就行。</p>
-<h3 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h3><p><img src="/posts/2942ffab/CI_2.jpg"></p>
+<h3 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h3><p><img src="CI_2.jpg"></p>
 <p>选择在github上新建的仓库</p>
-<p><img src="/posts/2942ffab/CI_3.jpg"></p>
+<p><img src="CI_3.jpg"></p>
 <h2 id="设置访问权限"><a href="#设置访问权限" class="headerlink" title="设置访问权限"></a>设置访问权限</h2><h3 id="生成访问令牌"><a href="#生成访问令牌" class="headerlink" title="生成访问令牌"></a>生成访问令牌</h3><p>打开github设置<code>Settings</code></p>
-<p><img src="/posts/2942ffab/CI_4.jpg"></p>
+<p><img src="CI_4.jpg"></p>
 <p>选择<code>Developer Settings</code></p>
-<p><img src="/posts/2942ffab/CI_5.jpg"></p>
+<p><img src="CI_5.jpg"></p>
 <p>选择<code>Personal access tokens</code></p>
-<p><img src="/posts/2942ffab/CI_6.jpg"></p>
+<p><img src="CI_6.jpg"></p>
 <p>配置<code>Personal access tokens</code></p>
-<p><img src="/posts/2942ffab/CI_7.jpg"></p>
+<p><img src="CI_7.jpg"></p>
 <p>配置完成后，下滑到最后，点击<code>Generate token1</code> 生成tokens</p>
 <p>复制<code>Access Token</code></p>
-<p><img src="/posts/2942ffab/CI_8.jpg"></p>
+<p><img src="CI_8.jpg"></p>
 <h3 id="加密Access-Token"><a href="#加密Access-Token" class="headerlink" title="加密Access Token"></a>加密<code>Access Token</code></h3><p>因为生成的Token需要写进公开的脚本中，所以要进行加密。</p>
 <p>打开AppVeyor加密页面，进行如下操作：</p>
-<p><img src="/posts/2942ffab/CI_9.jpg"></p>
+<p><img src="CI_9.jpg"></p>
 <p>复制加密的Token</p>
 <h3 id="配置appveyor-yml"><a href="#配置appveyor-yml" class="headerlink" title="配置appveyor.yml"></a>配置<code>appveyor.yml</code></h3><p>在本地配置根目录下新建一个文件<code>appveyor.yml</code></p>
-<p><img src="/posts/2942ffab/CI_10.jpg"></p>
+<p><img src="CI_10.jpg"></p>
 <p>粘贴以下代码：其中<strong>将加密的Token粘贴进去</strong></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">clone_depth:</span> <span class="number">5</span>  </span><br><span class="line"></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="attr">access_token:</span></span><br><span class="line">    <span class="attr">secure:</span> <span class="comment">#### 从#开始删除，将加密的Token粘贴在此处 ####    </span></span><br><span class="line">    </span><br><span class="line"><span class="attr">install:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ps:</span> <span class="string">Install-Product</span> <span class="string">node</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">node</span> <span class="string">--version</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">--version</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span> </span><br><span class="line">    <span class="comment">####### 根据自己需求，下载的hexo 插件 ##############</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-theme-next</span>   <span class="comment"># 下载最新版本的next主题</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-abbrlink</span> <span class="string">--save</span> <span class="comment"># 编写永久链接</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-searchdb</span> <span class="string">--save</span>  <span class="comment">#本地搜索</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-neat</span> <span class="string">--save</span>  <span class="comment"># 静态压缩</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-filter-nofollow</span> <span class="string">--save</span>    <span class="comment"># 防跟随</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">uninstall</span> <span class="string">hexo-asset-image</span> <span class="string">--save</span>     <span class="comment">#在高版本的hexo加载图片出现问题</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-renderer-marked</span> <span class="string">--save</span>  <span class="comment"># 加载图片</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-word-counter</span>   <span class="comment">#统计文章字数</span></span><br><span class="line">    <span class="comment">################################################</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">ls</span> <span class="string">--depth</span> <span class="number">0</span>  <span class="comment">#检查安装的插件</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">build_script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">artifacts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">public</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">on_success:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">credential.helper</span> <span class="string">store</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ps:</span> <span class="string">Add-Content</span> <span class="string">&quot;$env:USERPROFILE\.git-credentials&quot;</span> <span class="string">&quot;https://$($env:access_token):x-oauth-basic@github.com`n&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;%GIT_USER_EMAIL%&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;%GIT_USER_NAME%&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">clone</span> <span class="string">--depth</span> <span class="number">5</span> <span class="string">-q</span> <span class="string">--branch=%TARGET_BRANCH%</span> <span class="string">%STATIC_SITE_REPO%</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cd</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">del</span> <span class="string">*</span> <span class="string">/f</span> <span class="string">/q</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">for</span> <span class="string">/d</span> <span class="string">%%p</span> <span class="string">IN</span> <span class="string">(*)</span> <span class="string">do</span> <span class="string">rmdir</span> <span class="string">&quot;%%p&quot;</span> <span class="string">/s</span> <span class="string">/q</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">SETLOCAL</span> <span class="string">EnableDelayedExpansion</span> <span class="string">&amp;</span> <span class="string">robocopy</span> <span class="string">&quot;%APPVEYOR_BUILD_FOLDER%\public&quot;</span> <span class="string">&quot;%TEMP%\static-site&quot;</span> <span class="string">/e</span> <span class="string">&amp;</span> <span class="string">IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">1</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">3</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(exit</span> <span class="number">1</span><span class="string">))</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">add</span> <span class="string">-A</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">commit</span> <span class="string">-m</span> <span class="string">&quot;Update Static Site&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">push</span> <span class="string">origin</span> <span class="string">%TARGET_BRANCH%</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">appveyor</span> <span class="string">AddMessage</span> <span class="string">&quot;Static Site Updated&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="配置AppVeyor"><a href="#配置AppVeyor" class="headerlink" title="配置AppVeyor"></a>配置AppVeyor</h3><p>打开AppVeyor新建的项目界面，配置<code>environment</code></p>
-<p><img src="/posts/2942ffab/CI_12.jpg"></p>
+<p><img src="CI_12.jpg"></p>
 <h3 id="上传源文件"><a href="#上传源文件" class="headerlink" title="上传源文件"></a>上传源文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add -A   <span class="comment"># 暂存提交，和git add . 的区别是可以删除文件</span></span><br><span class="line">git commit -m <span class="string">&quot;first&quot;</span></span><br><span class="line">git push origin main   <span class="comment">#默认是master</span></span><br></pre></td></tr></table></figure>
 
 <p>此时已经基本完成所有操作，可以在Appveyor网站的<code>current build</code>观察到当前的构件情况</p>
-<p><img src="/posts/2942ffab/CI_13.jpg"></p>
+<p><img src="CI_13.jpg"></p>
 <p>可以看到最后成功了</p>
-<p><img src="/posts/2942ffab/CI_14.jpg"></p>
+<p><img src="CI_14.jpg"></p>
 <p>后面就可以通过向新建的备份文件仓库<code>push</code>文件就行了。</p>
 <p>如果换了新电脑，只需要将仓库的文件<code>clone </code>下来就行了</p>
 <h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><p>我在编译过程中发现没有Error，但是页面仍没有加载出来，而且什么都没有了。最后查看解析过程发现有一个 <code>No layout</code>的<code>Warn</code>。</p>
-<p><img src="/posts/2942ffab/CI_15.jpg"></p>
+<p><img src="CI_15.jpg"></p>
 <p>原来是因为上传主题，而主题里面有一个.git的隐藏文件，上传时会把这个主题当成一个独立的模块，导致页面生成失败。</p>
 <p>解决方案是：</p>
 <ol>
@@ -1893,40 +1893,40 @@ exists(完整的查询语句)
 <p>这个注意：后面会用到。</p>
 <p>![](git_setup_branches.jpg）</p>
 <p>安装完成后<br>点击鼠标右键，出现下图图标，说明安装完成。</p>
-<p><img src="/posts/29cff741/check_git.png"><br>打开Git Bash,输入git –version,出现版本号，则表示安装完成。</p>
-<p><img src="/posts/29cff741/git_version.jpg"></p>
+<p><img src="check_git.png"><br>打开Git Bash,输入git –version,出现版本号，则表示安装完成。</p>
+<p><img src="git_version.jpg"></p>
 <h3 id="绑定SSH"><a href="#绑定SSH" class="headerlink" title="绑定SSH"></a>绑定SSH</h3><p>通过ssh协议生成公钥，将github和本地连接起来，完成后可以在本地通过gi命令上传文件</p>
 <p>在git bash 里面输入 ssh-keygen -t rsa,<strong>并敲四次回车</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 
 <p>生成两个文件，分别为秘钥 id_rsa 和公钥 id_rsa.pub</p>
-<p>一般在根目录的文件下，windows稍微特别，在用户文件里（C:&#x2F;Users&#x2F;用户名&#x2F;.ssh）</p>
-<p><img src="/posts/29cff741/ssh-setup.jpg"></p>
+<p>一般在根目录的文件下，windows稍微特别，在用户文件里（C:/Users/用户名/.ssh）</p>
+<p><img src="ssh-setup.jpg"></p>
 <p>用记事本打开 id_rsa.pub，并将其中内容全部复制</p>
-<p><img src="/posts/29cff741/ssh-setup2.jpg"><br>打开自己的github设置<br><img src="/posts/29cff741/ssh-setup3.jpg"></p>
+<p><img src="ssh-setup2.jpg"><br>打开自己的github设置<br><img src="ssh-setup3.jpg"></p>
 <p>选择SSH and GPG keys</p>
-<p><img src="/posts/29cff741/ssh-setup4.jpg"></p>
+<p><img src="ssh-setup4.jpg"></p>
 <p>将公钥粘贴进去</p>
-<p><img src="/posts/29cff741/ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#105;&#116;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a> 进行检验：</p>
+<p><img src="ssh-setup5.jpg"><br>验证是否成功，我们可以通过在 Git Bash 中输入 ssh -T <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#109;">&#103;&#x69;&#116;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#x6f;&#109;</a> 进行检验：</p>
 <p>第一次会询问你是否继续连接，输入yes就行，然后再输一次，就正常了。</p>
-<p><img src="/posts/29cff741/ssh-setup6.jpg"><br>新建项目</p>
-<p><img src="/posts/29cff741/ssh-setup7.jpg"><br>项目配置如下:</p>
-<p><img src="/posts/29cff741/ssh-setup8.jpg"><br>回到主页，点击刚建好的项目</p>
-<p><img src="/posts/29cff741/ssh-setup9.jpg"></p>
-<p>复制刚建好的项目网址<br><img src="/posts/29cff741/ssh-setup10.jpg"></p>
-<p>在本地计算机新建一个文件夹，比如我的文件夹在(D:&#x2F;MyBlog)</p>
+<p><img src="ssh-setup6.jpg"><br>新建项目</p>
+<p><img src="ssh-setup7.jpg"><br>项目配置如下:</p>
+<p><img src="ssh-setup8.jpg"><br>回到主页，点击刚建好的项目</p>
+<p><img src="ssh-setup9.jpg"></p>
+<p>复制刚建好的项目网址<br><img src="ssh-setup10.jpg"></p>
+<p>在本地计算机新建一个文件夹，比如我的文件夹在(D:/MyBlog)</p>
 <p>然后在该文件下右键打开Cit bash输入：git clone 项目网址</p>
-<p><img src="/posts/29cff741/ssh-setup11.jpg"></p>
+<p><img src="ssh-setup11.jpg"></p>
 <p>此时已经将本地文件夹和远程仓库绑定了。</p>
 <h2 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装<a href="https://nodejs.org/en/">node.js</a></h2><h3 id="测试安装"><a href="#测试安装" class="headerlink" title="测试安装"></a>测试安装</h3><p>从<a href="https://nodejs.org/en/">node.js</a>官方下载安装，在<code>cmd</code>中检查是否安装成功</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">node -v </span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h3><p>因为在执行例如npm install webpack -g等命令全局安装的时候，默认会将模块安装在C:\Users\用户名\AppData\Roaming路径下的npm和npm_cache中，不方便管理且占用C盘空间，所以这里配置自定义的全局模块安装目录，在node.js安装目录下新建两个文件夹 node_global和node_cache，然后在cmd命令下执行如下两个命令：<br><img src="/posts/29cff741/ssh-setup12.jpg"></p>
+<h3 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h3><p>因为在执行例如npm install webpack -g等命令全局安装的时候，默认会将模块安装在C:\Users\用户名\AppData\Roaming路径下的npm和npm_cache中，不方便管理且占用C盘空间，所以这里配置自定义的全局模块安装目录，在node.js安装目录下新建两个文件夹 node_global和node_cache，然后在cmd命令下执行如下两个命令：<br><img src="ssh-setup12.jpg"></p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> prefix &quot;F:\Program Files\nodejs\node_global&quot;</span><br><span class="line">npm config <span class="built_in">set</span> cache &quot;F:\Program Files\nodejs\node_cache&quot;</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>在系统变量中新建一个变量名为 “NODE_PATH”<br><img src="/posts/29cff741/ssh-setup12.jpg"></p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>在系统变量中新建一个变量名为 “NODE_PATH”<br><img src="ssh-setup12.jpg"></p>
 <p>编辑用户变量里的Path，将相应npm的路径改为如图所示：</p>
-<p><img src="/posts/29cff741/ssh-setup13.jpg"></p>
+<p><img src="ssh-setup13.jpg"></p>
 <h3 id="测试npm模块"><a href="#测试npm模块" class="headerlink" title="测试npm模块"></a>测试npm模块</h3><p>在cmd中执行</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure>
 
@@ -1944,13 +1944,13 @@ exists(完整的查询语句)
 <p>此时框架已经基本在本地布置完成:可以在 <a href="http://localhost:4000/">http://localhost:4000</a> 查看新部署的网页，ctrl+c停止运行</p>
 <p>将Hexo部署到GitHub</p>
 <p>用记事本打开当前文件夹下的 _config.yml 文件</p>
-<p>并在底部写上如下代码，需要把原来的deploy删除，另外冒号后面要有空格<br><img src="/posts/29cff741/ssh-setup13.jpg"></p>
+<p>并在底部写上如下代码，需要把原来的deploy删除，另外冒号后面要有空格<br><img src="ssh-setup13.jpg"></p>
 <h3 id="安装Git部署插件"><a href="#安装Git部署插件" class="headerlink" title="安装Git部署插件"></a>安装Git部署插件</h3><p>单平台部署可以不安装</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
 <h3 id="提交到github"><a href="#提交到github" class="headerlink" title="提交到github"></a>提交到github</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean   #清除缓存文件和已生成的静态文件</span><br><span class="line">hexo g       #生成网站静态文件</span><br><span class="line">hexo d       #部署到github上的仓库</span><br></pre></td></tr></table></figure>
 
-<p>此时你输入你项目的网址’http:&#x2F;&#x2F;用户名.github.io, 就可以访问自己的博客了。</p>
+<p>此时你输入你项目的网址’http://用户名.github.io, 就可以访问自己的博客了。</p>
 <p>hexo d 是上传到github上，如果你频繁的修改文件，或者只想暂时查看一下布局，可以选择：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean&amp;&amp;hexo g&amp;&amp;hexo s       </span><br></pre></td></tr></table></figure>
 
