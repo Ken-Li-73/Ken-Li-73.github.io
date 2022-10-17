@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.mykebaby.com/tags/index.html</loc>
-    
-    <lastmod>2022-10-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.mykebaby.com/posts/44826182/</loc>
     
     <lastmod>2022-10-17</lastmod>
@@ -110,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://www.mykebaby.com/posts/29cff741/</loc>
+    <loc>https://www.mykebaby.com/tags/index.html</loc>
     
     <lastmod>2022-10-17</lastmod>
     
@@ -182,6 +173,15 @@
   </url>
   
   <url>
+    <loc>https://www.mykebaby.com/posts/29cff741/</loc>
+    
+    <lastmod>2022-10-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.mykebaby.com/posts/b2f918fd/</loc>
     
     <lastmod>2022-10-17</lastmod>
@@ -192,15 +192,6 @@
   
   <url>
     <loc>https://www.mykebaby.com/posts/4b83bc00/</loc>
-    
-    <lastmod>2022-10-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mykebaby.com/posts/2942ffab/</loc>
     
     <lastmod>2022-10-17</lastmod>
     
@@ -354,6 +345,15 @@
   
   <url>
     <loc>https://www.mykebaby.com/posts/3fc4b270/</loc>
+    
+    <lastmod>2022-10-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mykebaby.com/posts/2942ffab/</loc>
     
     <lastmod>2022-10-17</lastmod>
     
